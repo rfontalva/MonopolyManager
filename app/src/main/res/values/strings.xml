@@ -1,0 +1,78 @@
+<resources>
+    <string name="app_name">Monopoly Manager</string>
+    <string name="username">Nombre de usuario</string>
+    <string name="password">Contraseña</string>
+    <string name="register">Registrarse</string>
+    <string name="login">Iniciar sesión</string>
+    <string name="home">Inicio</string>
+    <string name="settings">Preferencias</string>
+    <string name="greeting">Hola,</string>
+    <string name="wallet">Tu billetera</string>
+    <string name="estate">Tus propiedades</string>
+    <string name="initial_cash">$1500</string>
+    <string name="color">Color del grupo de propiedad:</string>
+    <string name="property">Nombre de la propiedad:</string>
+    <string name="addEdit">Agregar/Editar propiedad</string>
+    <string name="houses">Casas:</string>
+    <string name="rent">Renta:</string>
+    <string name="price">Precio:</string>
+    <string name="houseAmt">0</string>
+    <string name="buy">Comprar</string>
+    <string name="general">General</string>
+    <string name="sell">Vender</string>
+
+    <!--properties  names-->
+    <string name="mediterranean">Avenida Mediterráneo</string>
+    <string name="baltic">Avenida Báltico</string>
+    <string name="oriental">Avenida Oriental</string>
+    <string name="vermont">Avenida Vermont</string>
+    <string name="connecticut">Avenida Connecticut</string>
+    <string name="stCharles">Plaza San Carlos</string>
+    <string name="states">Avenida de los Estados</string>
+    <string name="virginia">Avenida Virginia</string>
+    <string name="stJames">Plaza San James</string>
+    <string name="tennessee">Avenida Tennessee</string>
+    <string name="newYork">Avenida Nueva York</string>
+    <string name="kentucky">Avenida Kentucky</string>
+    <string name="indiana">Avenida Indiana</string>
+    <string name="illinois">Avenida Illinois</string>
+    <string name="atlantic">Avenida Atlántico</string>
+    <string name="ventnor">Avenida Ventnor</string>
+    <string name="marvin">Jardines de Marvin</string>
+    <string name="pacific">Avenida Pacífico</string>
+    <string name="northCarolina">Avenida Carolina del norte</string>
+    <string name="pennsylvania">Avenida Pennsylvania</string>
+    <string name="parkPlace">Plaza del Parque</string>
+    <string name="boardWalk">Paseo Tablado</string>
+
+    <!--colors-->
+    <string name="lime">Lima</string>
+    <string name="red">Rojo</string>
+    <string name="blue">Azul</string>
+    <string name="orange">Naranja</string>
+    <string name="lightblue">Celeste</string>
+    <string name="yellow">Amarillo</string>
+    <string name="green">Verde</string>
+    <string name="purple">Violeta</string>
+
+
+    <string name="wrongUser">Usuario o contraseña incorrecto</string>
+    <string name="selectFirst">Selecciona una propiedad primero</string>
+    <string name="notEnoughCash">No tienes suficiente dinero</string>
+
+    <!-- Preference Titles -->
+    <string name="messages_header">Messages</string>
+    <string name="sync_header">Sync</string>
+
+    <!-- Messages Preferences -->
+    <string name="signature_title">Your signature</string>
+    <string name="reply_title">Default reply action</string>
+
+    <!-- Sync Preferences -->
+    <string name="sync_title">Sync email periodically</string>
+    <string name="attachment_title">Download incoming attachments</string>
+    <string name="attachment_summary_on">Automatically download attachments for incoming emails
+    </string>
+    <string name="attachment_summary_off">Only download attachments when manually requested</string>
+    <string name="pwdRepeat">Repita su contraseña</string>
+</resources>

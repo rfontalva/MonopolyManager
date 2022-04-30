@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/navigation"
+    app:startDestination="@id/home2">
+    <fragment
+        android:id="@+id/home2"
+        android:name="com.example.monopolymanager.fragments.Home"
+        android:label="home_fragment"
+        tools:layout="@layout/home_fragment" >
+        <action
+            android:id="@+id/action_home2_to_addEdit"
+            app:destination="@id/addEdit" />
+        <action
+            android:id="@+id/action_home2_to_detail"
+            app:destination="@id/detail" />
+    </fragment>
+    <fragment
+        android:id="@+id/addEdit"
+        android:name="com.example.monopolymanager.fragments.AddEdit"
+        android:label="add_edit_fragment"
+        tools:layout="@layout/add_edit_fragment" >
+        <argument
+            android:name="isAdd"
+            app:argType="boolean"
+            android:defaultValue="true" />
+        <argument
+            android:name="property"
+            app:argType="com.example.monopolymanager.entities.Property"
+            app:nullable="true"
+            android:defaultValue="@null" />
+        <action
+            android:id="@+id/action_addEdit_to_home2"
+            app:destination="@id/home2" />
+    </fragment>
+    <fragment
+        android:id="@+id/detail"
+        android:name="com.example.monopolymanager.fragments.Detail"
+        android:label="detail_fragment"
+        tools:layout="@layout/detail_fragment" >
+        <argument
+            android:name="property"
+            app:argType="com.example.monopolymanager.entities.Property" />
+    </fragment>
+</navigation>
