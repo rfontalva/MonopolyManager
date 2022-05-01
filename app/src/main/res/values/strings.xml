@@ -20,6 +20,13 @@
     <string name="buy">Comprar</string>
     <string name="general">General</string>
     <string name="sell">Vender</string>
+    <string name="hotel">Hotel</string>
+    <string name="noHouses">Sin casas</string>
+    <string name="oneHouse">1 casa</string>
+    <string name="twoHouses">2 casas</string>
+    <string name="threeHouses">3 casas</string>
+    <string name="fourHouses">4 casas</string>
+
 
     <!--properties  names-->
     <string name="mediterranean">Avenida Mediterráneo</string>

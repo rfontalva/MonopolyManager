@@ -11,7 +11,7 @@ import com.google.gson.Gson
 
 fun stringToArray(string: String) : IntArray {
     var foundNumbers : String = ""
-    var r : MutableList<Int> = mutableListOf()
+    val r : MutableList<Int> = mutableListOf()
     for (s in string) {
         foundNumbers = if (s == ' ') {
             continue
@@ -98,15 +98,31 @@ class Property(
     }
 
     fun getRentPrice() : Int? {
-        var rentArray = stringToArray(rent!!)
+        val rentArray = stringToArray(rent!!)
         return if (hasHotel) rentHotel else rentArray[houses]
     }
 
     fun addHouse() : Boolean {
-        if (hasHotel || houses == 4)
+        if (hasHotel || houses == 4) {
             hasHotel = true
             return false
+        }
         houses++
         return true
+    }
+
+    fun removeHouse() : Boolean {
+        if (hasHotel) {
+            hasHotel = false
+        }
+        if (houses == 0) {
+            return false
+        }
+        houses--
+        return true
+    }
+
+    fun getRentArray() : IntArray {
+        return stringToArray(rent!!)
     }
 }

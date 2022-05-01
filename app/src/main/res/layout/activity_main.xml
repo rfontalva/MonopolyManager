@@ -25,6 +25,7 @@
         android:layout_height="56dp"
         app:itemHorizontalTranslationEnabled="true"
         app:labelVisibilityMode="auto"
+        android:background="@color/monopoly_red"
         app:itemBackground="@color/monopoly_red"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

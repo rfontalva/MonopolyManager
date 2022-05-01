@@ -9,6 +9,9 @@ public interface propertyDao {
     @Query("SELECT * FROM Property ORDER BY idProperty")
     fun selectAll(): MutableList<Property>
 
+    @Query("SELECT * FROM Property WHERE idUser is null ORDER BY idProperty")
+    fun selectAllAvailable(): MutableList<Property>
+
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insertProperty(property: Property?)
 
@@ -20,6 +23,9 @@ public interface propertyDao {
 
     @Query("SELECT name from Property WHERE groupNumber = :groupNumber")
     fun loadPropertiesByGroup(groupNumber: Int): MutableList<String>
+
+    @Query("SELECT name FROM Property WHERE idUser is null AND groupNumber = :groupNumber ORDER BY idProperty")
+    fun loadAvailablePropertiesByGroup(groupNumber: Int): MutableList<String>
 
     @Query("SELECT * from Property WHERE idProperty = :id")
     fun loadPropertyById(id: Int): Property?
@@ -33,4 +39,6 @@ public interface propertyDao {
     @Query("SELECT idUser from Property WHERE idProperty = :idProperty")
     fun isAvailable(idProperty: Int?): Int
 
+    @Query("SELECT idUser from Property WHERE groupNumber = :groupNumber")
+    fun checkWholeGroup(groupNumber: Int) : MutableList<Int>
 }

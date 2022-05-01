@@ -22,6 +22,12 @@
     <string name="buy">Buy</string>
     <string name="general">General</string>
     <string name="sell">Vender</string>
+    <string name="hotel">Hotel</string>
+    <string name="noHouses">No houses</string>
+    <string name="oneHouse">1 house</string>
+    <string name="twoHouses">2 houses</string>
+    <string name="threeHouses">3 houses</string>
+    <string name="fourHouses">4 houses</string>
 
     <!--colors-->
     <string name="lime">Lime</string>

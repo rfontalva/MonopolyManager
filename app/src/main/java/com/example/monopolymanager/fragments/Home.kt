@@ -20,8 +20,7 @@ import com.example.monopolymanager.propertyAdapter.PropertyAdapter
 import com.example.monopolymanager.viewmodels.HomeViewModel
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 
-lateinit var greetingTxt : TextView
-lateinit var cashTxt : TextView
+
 lateinit var addButton : FloatingActionButton
 private var PREF_NAME = "MONOPOLY"
 
@@ -30,7 +29,8 @@ class Home : Fragment() {
     companion object {
         fun newInstance() = Home()
     }
-
+    lateinit var greetingTxt : TextView
+    lateinit var cashTxt : TextView
     private var db: appDatabase? = null
     private var userDao: userDao? = null
     private var propertyDao: propertyDao? = null
@@ -79,6 +79,6 @@ class Home : Fragment() {
     }
 
     fun onItemClick(position: Int) {
-        v.findNavController().navigate(HomeDirections.actionHome2ToDetail(properties!![position]))
+        v.findNavController().navigate(HomeDirections.actionHome2ToDetail(property = properties!![position]))
     }
 }
