@@ -6,9 +6,8 @@
         android:title="@string/home" />
 
     <item
-        android:id="@+id/settings"
+        android:id="@+id/settingsFragment"
         android:icon="@drawable/user"
-        android:title="@string/settings"
-        />
+        android:title="@string/settings" />
 
 </menu>

@@ -9,7 +9,7 @@ import com.example.monopolymanager.entities.Group
 import com.example.monopolymanager.entities.Property
 import com.example.monopolymanager.entities.User
 
-@Database(entities = [User::class, Group::class, Property::class], version = 2, exportSchema = false)
+@Database(entities = [User::class, Group::class, Property::class], version = 3, exportSchema = false)
 
 public  abstract class appDatabase : RoomDatabase() {
 

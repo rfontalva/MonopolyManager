@@ -7,7 +7,7 @@
     tools:context=".MainActivity">
 
     <androidx.fragment.app.FragmentContainerView
-        android:id="@+id/fragmentContainerView"
+        android:id="@+id/nav_host"
         android:name="androidx.navigation.fragment.NavHostFragment"
         android:layout_width="409dp"
         android:layout_height="673dp"
@@ -27,9 +27,11 @@
         app:labelVisibilityMode="auto"
         android:background="@color/monopoly_red"
         app:itemBackground="@color/monopoly_red"
+        app:itemIconTint="@drawable/bottom_navigation_selector"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
+        app:startDestination="@id/home2"
         app:menu="@menu/bottombar" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

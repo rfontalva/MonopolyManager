@@ -8,7 +8,9 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
 import android.widget.TextView
+import androidx.navigation.findNavController
 import com.example.monopolymanager.viewmodels.GeneralDetailViewModel
 import com.example.monopolymanager.R
 import com.example.monopolymanager.database.appDatabase
@@ -38,6 +40,7 @@ class GeneralDetail : Fragment() {
     lateinit var threeHousesRent : TextView
     lateinit var fourHousesRent : TextView
     lateinit var hotelRent : TextView
+    lateinit var editBtn : Button
 
     private lateinit var viewModel: GeneralDetailViewModel
 
@@ -58,6 +61,7 @@ class GeneralDetail : Fragment() {
         threeHousesRent = v.findViewById(R.id.threeHouseRent)
         fourHousesRent = v.findViewById(R.id.fourHouseRent)
         hotelRent = v.findViewById(R.id.hotelRent)
+        editBtn = v.findViewById(R.id.editBtn)
         return v
     }
 
@@ -68,16 +72,20 @@ class GeneralDetail : Fragment() {
         var idProperty = sharedPref.getInt("idProperty", -1)
         val property = propertyDao?.loadPropertyById(idProperty)
         propertyName.text = property?.name
-        price.text = "${getString(R.string.price)} ${property?.price}"
-        currentRent.text = "${getString(R.string.rent)} ${property?.getRentPrice()}"
-        housesAmt.text = "${getString(R.string.houses)} ${property?.houses}"
+        "${getString(R.string.price)} ${property?.price}".also { price.text = it }
+        "${getString(R.string.rent)} ${property?.getRentPrice()}".also { currentRent.text = it }
+        "${getString(R.string.houses)} ${property?.houses}".also { housesAmt.text = it }
         val rentArray = property!!.getRentArray()
-        noHousesRent.text = "$${ rentArray[0] }"
-        oneHouseRent.text = "$${ rentArray[1] }"
-        twoHousesRent.text = "$${ rentArray[2] }"
-        threeHousesRent.text = "$${ rentArray[3] }"
-        fourHousesRent.text = "$${ rentArray[4] }"
-        hotelRent.text = "$${property?.rentHotel}"
+        "$${ rentArray[0] }".also { noHousesRent.text = it }
+        "$${ rentArray[1] }".also { oneHouseRent.text = it }
+        "$${ rentArray[2] }".also { twoHousesRent.text = it }
+        "$${ rentArray[3] }".also { threeHousesRent.text = it }
+        "$${ rentArray[4] }".also { fourHousesRent.text = it }
+        "$${property.rentHotel}".also { hotelRent.text = it }
+
+        editBtn.setOnClickListener {
+            v.findNavController().navigate(DetailDirections.actionDetailToAddEdit(isAdd = false, property = property))
+        }
     }
 
 }

@@ -6,8 +6,6 @@ import android.os.Parcelable
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
-import androidx.room.TypeConverter
-import com.google.gson.Gson
 
 fun stringToArray(string: String) : IntArray {
     var foundNumbers : String = ""
@@ -59,6 +57,9 @@ class Property(
     @ColumnInfo(name = "hasHotel")
     var hasHotel: Boolean = false
 
+    @ColumnInfo(name = "isMortgaged")
+    var isMortgaged: Boolean = false
+
     constructor(parcel: Parcel) : this (
         parcel.readString(),
         parcel.readInt(),
@@ -105,6 +106,7 @@ class Property(
     fun addHouse() : Boolean {
         if (hasHotel || houses == 4) {
             hasHotel = true
+            houses++
             return false
         }
         houses++
@@ -124,5 +126,17 @@ class Property(
 
     fun getRentArray() : IntArray {
         return stringToArray(rent!!)
+    }
+
+    fun mortgage(user: User) : Boolean {
+        var cash = user.getCash()
+        var isSuccessful: Boolean = if (isMortgaged) {
+            user.pay(mortgage).second
+        } else {
+            user.charge(mortgage).second
+        }
+        if (isSuccessful)
+            isMortgaged = !isMortgaged
+        return isSuccessful
     }
 }

@@ -1,5 +1,6 @@
 package com.example.monopolymanager.propertyAdapter
 
+import android.content.Context
 import android.graphics.Color
 import android.view.LayoutInflater
 import android.view.View
@@ -18,7 +19,7 @@ import com.example.monopolymanager.entities.User
 
 
 class PropertyAdapter (private var properties : MutableList<Property>?,
-               var onClick : (Int) -> Unit
+               var onClick : (Int) -> Unit,
 ) : RecyclerView.Adapter<PropertyAdapter.PropertyHolder>()  {
     class PropertyHolder(v: View) : RecyclerView.ViewHolder(v) {
         private var view: View = v
@@ -35,7 +36,14 @@ class PropertyAdapter (private var properties : MutableList<Property>?,
             propertyNameTxt.text = prop?.name
 
             val propertyPriceTxt : TextView = view.findViewById(R.id.propertyPriceTxt)
-            propertyPriceTxt.text = "$${prop?.getRentPrice()}"
+            "$${prop?.getRentPrice()}".also { propertyPriceTxt.text = it }
+
+            val isMortgagedTxt : TextView = view.findViewById(R.id.isMortgagedTxt)
+            if (prop!!.isMortgaged) {
+                isMortgagedTxt.text = view.context.resources.getString(R.string.isMortgaged)
+            } else {
+                isMortgagedTxt.text = ""
+            }
 
             val imageViewIcon: ImageView = view.findViewById(R.id.propertyColorImg) as ImageView
             var color = groupDao?.getColor(prop?.group)

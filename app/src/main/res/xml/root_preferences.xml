@@ -1,0 +1,25 @@
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <PreferenceCategory app:title="@string/messages_header">
+
+        <ListPreference
+            app:defaultValue="reply"
+            app:entries="@array/reply_entries"
+            app:entryValues="@array/reply_values"
+            app:key="reply"
+            app:title="@string/reply_title"
+            app:useSimpleSummaryProvider="true" />
+
+    </PreferenceCategory>
+
+    <PreferenceCategory app:title="@string/session">
+
+        <SwitchPreferenceCompat
+            android:id="@+id/stayLoggedIn"
+            app:key="stayLoggedIn"
+            app:title="@string/stayLoggedIn" />
+
+    </PreferenceCategory>
+
+</PreferenceScreen>

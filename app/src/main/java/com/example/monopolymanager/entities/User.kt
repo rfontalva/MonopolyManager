@@ -90,8 +90,4 @@ class User(
         cash += amount
         return Pair(cash, true)
     }
-
-    fun validate(user: String, password: String): Boolean  {
-        return username == user && this.password == password
-    }
 }

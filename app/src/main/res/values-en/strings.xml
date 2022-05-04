@@ -15,6 +15,8 @@
     <string name="color">Property group color:</string>
     <string name="property">Property name:</string>
     <string name="addEdit">Add/Edit property</string>
+    <string name="add">Add property</string>
+    <string name="edit">Edit property</string>
     <string name="houses">Houses:</string>
     <string name="rent">Rent:</string>
     <string name="price">Price:</string>
@@ -28,6 +30,17 @@
     <string name="twoHouses">2 houses</string>
     <string name="threeHouses">3 houses</string>
     <string name="fourHouses">4 houses</string>
+    <string name="mortgagePrice">Mortgage:</string>
+    <string name="mortgageDetails">Mortgaged properties don\'t charge rent. To unmortgage a property you need to return the mortgage price.</string>
+    <string name="mortgage">Mortgage</string>
+    <string name="unmortgage">Unmortgage</string>
+    <string name="isMortgaged">(Mortgaged)</string>
+    <string name="housesError">First you have to buy the property. You\'ll be able to add houses from the edit button later.</string>
+    <string name="allPropertiesError">You need to have all the properties in a group to buy houses.</string>
+    <string name="mail">Email</string>
+    <string name="changeEmail">Change email</string>
+    <string name="change">Change</string>
+    <string name="changeImage">Change image</string>
 
     <!--colors-->
     <string name="lime">Lime</string>
@@ -68,6 +81,9 @@
 
     <string name="messages_header">Messages</string>
     <string name="sync_header">Sync</string>
+    <string name="session">Session</string>
+    <string name="stayLoggedIn">Stay logged I¿in</string>
+    <string name="logOut">Log Out</string>
 
     <!-- Messages Preferences -->
     <string name="signature_title">Your signature</string>

@@ -42,6 +42,9 @@
         <argument
             android:name="property"
             app:argType="com.example.monopolymanager.entities.Property" />
+        <action
+            android:id="@+id/action_detail_to_addEdit"
+            app:destination="@id/addEdit" />
     </fragment>
     <fragment
         android:id="@+id/generalDetail"
@@ -53,4 +56,16 @@
         android:name="com.example.monopolymanager.fragments.SellDetail"
         android:label="sell_detail_fragment"
         tools:layout="@layout/sell_detail_fragment" />
+    <fragment
+        android:id="@+id/settingsFragment"
+        android:name="com.example.monopolymanager.fragments.SettingsFragment"
+        android:label="SettingsFragment" >
+        <action
+            android:id="@+id/action_settingsFragment_to_settingsActivity"
+            app:destination="@id/settingsActivity" />
+    </fragment>
+    <activity
+        android:id="@+id/settingsActivity"
+        android:name="com.example.monopolymanager.Settings"
+        android:label="SettingsActivity" />
 </navigation>

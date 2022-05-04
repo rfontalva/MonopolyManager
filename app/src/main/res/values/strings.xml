@@ -13,6 +13,8 @@
     <string name="color">Color del grupo de propiedad:</string>
     <string name="property">Nombre de la propiedad:</string>
     <string name="addEdit">Agregar/Editar propiedad</string>
+    <string name="add">Agregar propiedad</string>
+    <string name="edit">Editar propiedad</string>
     <string name="houses">Casas:</string>
     <string name="rent">Renta:</string>
     <string name="price">Precio:</string>
@@ -26,6 +28,17 @@
     <string name="twoHouses">2 casas</string>
     <string name="threeHouses">3 casas</string>
     <string name="fourHouses">4 casas</string>
+    <string name="mortgagePrice">Hipoteca:</string>
+    <string name="mortgageDetails">Las propiedades hipotecadas no cobran renta. Para deshipotecar se debe devolver la plata obtenida por la hipoteca</string>
+    <string name="mortgage">Hipotecar</string>
+    <string name="unmortgage">Deshipotecar</string>
+    <string name="isMortgaged">(Hipotecada)</string>
+    <string name="housesError">Primero se debe comprar la propiedad. Luego podrás agregar casas desde el boton "editar"</string>
+    <string name="allPropertiesError">Para agregar o quitar casas se deben tener todas las propiedades de ese grupo.</string>
+    <string name="mail">Email</string>
+    <string name="changeEmail">Cambiar email</string>
+    <string name="change">Cambiar</string>
+    <string name="changeImage">Cambiar imagen</string>
 
 
     <!--properties  names-->
@@ -70,6 +83,10 @@
     <!-- Preference Titles -->
     <string name="messages_header">Messages</string>
     <string name="sync_header">Sync</string>
+    <string name="session">Sesión</string>
+    <string name="stayLoggedIn">Mantener iniciada la sesión</string>
+    <string name="logOut">Cerrar sesión</string>
+
 
     <!-- Messages Preferences -->
     <string name="signature_title">Your signature</string>
@@ -82,4 +99,5 @@
     </string>
     <string name="attachment_summary_off">Only download attachments when manually requested</string>
     <string name="pwdRepeat">Repita su contraseña</string>
+    <string name="title_activity_settings">SettingsActivity</string>
 </resources>

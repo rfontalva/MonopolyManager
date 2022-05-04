@@ -39,6 +39,6 @@ public interface propertyDao {
     @Query("SELECT idUser from Property WHERE idProperty = :idProperty")
     fun isAvailable(idProperty: Int?): Int
 
-    @Query("SELECT idUser from Property WHERE groupNumber = :groupNumber")
-    fun checkWholeGroup(groupNumber: Int) : MutableList<Int>
+    @Query("SELECT count(*) from Property WHERE groupNumber = :groupNumber AND (idUser <> :idUser OR idUser is null)")
+    fun checkWholeGroup(groupNumber: Int, idUser: Int?) : Int
 }
