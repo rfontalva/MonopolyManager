@@ -129,7 +129,6 @@ class Property(
     }
 
     fun mortgage(user: User) : Boolean {
-        var cash = user.getCash()
         var isSuccessful: Boolean = if (isMortgaged) {
             user.pay(mortgage).second
         } else {

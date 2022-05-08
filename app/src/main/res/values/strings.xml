@@ -21,7 +21,6 @@
     <string name="houseAmt">0</string>
     <string name="buy">Comprar</string>
     <string name="general">General</string>
-    <string name="sell">Vender</string>
     <string name="hotel">Hotel</string>
     <string name="noHouses">Sin casas</string>
     <string name="oneHouse">1 casa</string>
@@ -39,6 +38,15 @@
     <string name="changeEmail">Cambiar email</string>
     <string name="change">Cambiar</string>
     <string name="changeImage">Cambiar imagen</string>
+    <string name="dog">Perro</string>
+    <string name="car">Auto</string>
+    <string name="hat">Sombrero</string>
+    <string name="shoe">Zapato</string>
+    <string name="languages_header">Idioma</string>
+    <string name="app_language">Cambiar el idioma de la aplicación</string>
+    <string name="createAnAccount">Crea una cuenta</string>
+    <string name="favoritePiece">Pieza favorita</string>
+
 
 
     <!--properties  names-->

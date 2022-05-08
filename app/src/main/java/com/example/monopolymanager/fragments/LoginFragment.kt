@@ -1,6 +1,7 @@
 package com.example.monopolymanager.fragments
 
 import android.content.Context
+import android.content.Intent
 import android.content.SharedPreferences
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -13,10 +14,15 @@ import androidx.navigation.findNavController
 import com.example.monopolymanager.R
 import com.example.monopolymanager.viewmodels.LoginViewModel
 import com.example.monopolymanager.Login
+import com.example.monopolymanager.MainActivity
 import com.example.monopolymanager.database.appDatabase
 import com.example.monopolymanager.database.userDao
+import com.example.monopolymanager.databinding.LoginFragmentBinding
 import com.example.monopolymanager.entities.PropertiesRepository
+import com.example.monopolymanager.utils.switchLocal
 import com.google.android.material.snackbar.Snackbar
+
+private var PREF_NAME = "MONOPOLY"
 
 class LoginFragment : Fragment() {
 
@@ -24,58 +30,55 @@ class LoginFragment : Fragment() {
         fun newInstance() = Login()
     }
 
-    private var db: appDatabase? = null
-    private var userDao: userDao? = null
-    lateinit var password : EditText
-    lateinit var username : EditText
-    lateinit var submit : Button
-    lateinit var toRegister : Button
-    lateinit var v: View
+    private lateinit var binding: LoginFragmentBinding
     private lateinit var viewModel: LoginViewModel
-    private var PREF_NAME = "MONOPOLY"
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
-        v = inflater.inflate(R.layout.login_fragment, container, false)
-        username = v.findViewById(R.id.username)
-        password = v.findViewById(R.id.password)
-        submit = v.findViewById(R.id.btnSubmit)
-        toRegister = v.findViewById(R.id.toRegisterBtn)
-        return v
+    ): View {
+        binding = LoginFragmentBinding.inflate(layoutInflater)
+        viewModel = LoginViewModel(context)
+
+        return binding.root
     }
 
     override fun onStart() {
         super.onStart()
-        db = appDatabase.getAppDataBase(v.context)
-        userDao = db?.userDao()
-        val navController = v.findNavController()
+
+        val navController = binding.root.findNavController()
         val sharedPref: SharedPreferences = requireContext().getSharedPreferences(PREF_NAME, Context.MODE_PRIVATE)
-        var isInitialized = sharedPref.getBoolean("isInitialized", false)
+        val stayLoggedPref = sharedPref.getBoolean("stayLoggedIn", false)
+
+
+        if (stayLoggedPref) {
+            val action = LoginFragmentDirections.actionLoginToMainActivity()
+            navController.navigate(action)
+        }
+        val isInitialized = sharedPref.getBoolean("isInitialized", false)
         if (!isInitialized) {
-            PropertiesRepository(v.context)
+            viewModel.initializeProperties()
             val editor = sharedPref.edit()
             editor.putBoolean("isInitialized", true)
             editor.apply()
         }
 
-        submit.setOnClickListener {
-            val username = userDao?.validate(username.text.toString(), password.text.toString())
-            if (username != null) {
-                val u = userDao?.loadPersonByUsername(username)
+        binding.btnSubmit.setOnClickListener {
+            val user = viewModel.validate(binding.username.text.toString(), binding.password.text.toString())
+            if (user != null) {
                 val action = LoginFragmentDirections.actionLoginToMainActivity()
                 val editor = sharedPref.edit()
-                editor.putInt("idUser", u!!.idUser)
+                editor.putInt("idUser", user.idUser)
+                editor.putString("language", "es")
                 editor.apply()
                 navController.navigate(action)
             }
             else {
-                Snackbar.make(v,getString(R.string.wrongUser), Snackbar.LENGTH_SHORT).show()
+                Snackbar.make(binding.root,getString(R.string.wrongUser), Snackbar.LENGTH_SHORT).show()
             }
         }
 
-        toRegister.setOnClickListener {
+        binding.toRegisterBtn.setOnClickListener {
             navController.navigate(LoginFragmentDirections.actionLoginToRegister())
         }
     }

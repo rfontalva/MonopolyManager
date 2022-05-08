@@ -21,7 +21,7 @@ interface groupDao {
     fun getAllColors(): MutableList<String>
 
     @Query("SELECT DISTINCT colorName FROM PropertyGroup JOIN Property using(groupNumber) where idUser is null")
-    fun getAllAvailableColors(): MutableList<String>
+    fun getAllAvailableColors(): MutableList<String?>
 
     @Query("SELECT color FROM PropertyGroup WHERE groupNumber = :group")
     fun getColor(group: Int?): String?

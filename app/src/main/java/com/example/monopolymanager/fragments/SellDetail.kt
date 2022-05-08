@@ -15,66 +15,48 @@ import com.example.monopolymanager.database.appDatabase
 import com.example.monopolymanager.database.groupDao
 import com.example.monopolymanager.database.propertyDao
 import com.example.monopolymanager.database.userDao
+import com.example.monopolymanager.databinding.SellDetailFragmentBinding
 import com.example.monopolymanager.entities.Property
 import com.example.monopolymanager.entities.User
 import com.example.monopolymanager.viewmodels.SellDetailViewModel
 import com.google.android.material.snackbar.Snackbar
 
-private var PREF_NAME = "MONOPOLY"
 
 class SellDetail : Fragment() {
 
     companion object {
         fun newInstance() = SellDetail()
     }
-
-    private var db: appDatabase? = null
-    private var userDao: userDao? = null
-    private var propertyDao: propertyDao? = null
-    lateinit var v: View
+    private lateinit var binding: SellDetailFragmentBinding
     private lateinit var viewModel: SellDetailViewModel
-    lateinit var mortgageTxt : TextView
-    lateinit var mortgageBtn : Button
-    var property : Property? = null
-    var user : User? = null
-
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        v = inflater.inflate(R.layout.sell_detail_fragment, container, false)
-        db = appDatabase.getAppDataBase(v.context)
-        propertyDao = db?.propertyDao()
-        userDao = db?.userDao()
-        mortgageTxt = v.findViewById(R.id.mortgageTxt)
-        mortgageBtn = v.findViewById(R.id.mortgageBtn)
-        val sharedPref: SharedPreferences = requireContext().getSharedPreferences(PREF_NAME, Context.MODE_PRIVATE)
-        val idProperty = sharedPref.getInt("idProperty", -1)
-        val idUser = sharedPref.getInt("idUser", -1)
-        user = userDao?.loadPersonById(idUser)
-        property = propertyDao?.loadPropertyById(idProperty)
-        return v
+
+        binding = SellDetailFragmentBinding.inflate(layoutInflater)
+        viewModel = SellDetailViewModel(context)
+        return binding.root
     }
 
     override fun onStart() {
         super.onStart()
-        "${getString(R.string.mortgagePrice)} ${property?.mortgage}".also { mortgageTxt.text = it }
-        if (property!!.isMortgaged) {
-            mortgageBtn.text = getString(R.string.unmortgage)
+        "${getString(R.string.mortgagePrice)} ${viewModel.property?.mortgage}".also { binding.mortgageTxt.text = it }
+        if (viewModel.property!!.isMortgaged) {
+            binding.mortgageBtn.text = getString(R.string.unmortgage)
         }
-        mortgageBtn.setOnClickListener {
-            var succesful = property?.mortgage(user!!)
-            if (property!!.isMortgaged) {
-                mortgageBtn.text = getString(R.string.unmortgage)
+        binding.mortgageBtn.setOnClickListener {
+            val succesful = viewModel.mortgage()
+            if (viewModel.isMortgaged()) {
+                binding.mortgageBtn.text = getString(R.string.unmortgage)
             } else {
-                mortgageBtn.text = getString(R.string.mortgage)
+                binding.mortgageBtn.text = getString(R.string.mortgage)
             }
             if (!succesful!!) {
-                Snackbar.make(v,getString(R.string.notEnoughCash), Snackbar.LENGTH_SHORT).show()
+                Snackbar.make(binding.root,getString(R.string.notEnoughCash), Snackbar.LENGTH_SHORT).show()
             } else {
-                propertyDao?.updateProperty(property)
-                userDao?.updatePerson(user)
+                viewModel.update()
             }
         }
     }

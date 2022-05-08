@@ -33,7 +33,8 @@ class PropertyAdapter (private var properties : MutableList<Property>?,
 
         fun setProperty(prop: Property?) {
             val propertyNameTxt : TextView = view.findViewById(R.id.propertyNameTxt)
-            propertyNameTxt.text = prop?.name
+            val nameId = view.resources.getIdentifier("com.example.monopolymanager:string/${prop?.name}", null, null);
+            propertyNameTxt.text = view.resources.getString(nameId)
 
             val propertyPriceTxt : TextView = view.findViewById(R.id.propertyPriceTxt)
             "$${prop?.getRentPrice()}".also { propertyPriceTxt.text = it }
@@ -46,7 +47,7 @@ class PropertyAdapter (private var properties : MutableList<Property>?,
             }
 
             val imageViewIcon: ImageView = view.findViewById(R.id.propertyColorImg) as ImageView
-            var color = groupDao?.getColor(prop?.group)
+            val color = groupDao?.getColor(prop.group)
             imageViewIcon.setBackgroundColor(Color.parseColor(color))
         }
 

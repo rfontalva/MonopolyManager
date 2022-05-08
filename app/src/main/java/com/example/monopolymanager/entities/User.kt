@@ -5,31 +5,31 @@ import android.os.Parcelable
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
+import com.example.monopolymanager.R
 
 //import kotlinx.android.parcel.Parcelize
 
 @Entity(tableName = "User")
 class User(
-    username: String?,
-    password: String?,
-    mail: String?
+    @ColumnInfo(name = "username")
+    private var username: String?,
+
+    @ColumnInfo(name = "password")
+    private var password: String?,
+
+    @ColumnInfo(name = "mail")
+    private var mail: String?
 ) : Parcelable {
 
     @PrimaryKey(autoGenerate = true)
     @ColumnInfo(name = "idUser")
     var idUser : Int = 0
 
-    @ColumnInfo(name = "username")
-    private var username = username
-
-    @ColumnInfo(name = "password")
-    private var password = password
-
-    @ColumnInfo(name = "mail")
-    private var mail = mail
-
     @ColumnInfo(name = "cash")
     private var cash: Int = 1500
+
+    @ColumnInfo(name = "avatar")
+    private var avatar: Int = R.drawable.dog
 
     constructor(parcel: Parcel) : this (
         parcel.readString(),
@@ -74,7 +74,19 @@ class User(
     }
 
     fun getMail() : String? {
-        return username
+        return mail
+    }
+
+    fun setMail(newMail: String) {
+        mail = newMail
+    }
+
+    fun getAvatar(): Int {
+        return avatar
+    }
+
+    fun setAvatar(id: Int) {
+        avatar = id
     }
 
     fun pay(amount: Int) : Pair<Int, Boolean> {

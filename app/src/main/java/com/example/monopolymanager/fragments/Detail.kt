@@ -16,6 +16,7 @@ import com.example.monopolymanager.R
 import com.example.monopolymanager.database.appDatabase
 import com.example.monopolymanager.database.groupDao
 import com.example.monopolymanager.database.userDao
+import com.example.monopolymanager.databinding.DetailFragmentBinding
 import com.example.monopolymanager.viewmodels.DetailViewModel
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
@@ -25,56 +26,48 @@ private var PREF_NAME = "MONOPOLY"
 
 class Detail : Fragment() {
 
+    private lateinit var binding : DetailFragmentBinding
     private var db: appDatabase? = null
     private var groupDao: groupDao? = null
-    lateinit var v: View
-    lateinit var viewPager: ViewPager2
-    lateinit var tabLayout: TabLayout
-    lateinit var headerColor : ImageView
+    private lateinit var viewModel : DetailViewModel
 
     companion object {
         fun newInstance() = Detail()
     }
 
-    private lateinit var viewModel: DetailViewModel
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        v = inflater.inflate(R.layout.detail_fragment, container, false)
-        tabLayout = v.findViewById(R.id.tab_layout)
-        viewPager = v.findViewById(R.id.viewPager)
-        headerColor = v.findViewById(R.id.headerColor)
+        binding = DetailFragmentBinding.inflate(layoutInflater)
+//        db = appDatabase.getAppDataBase(v.context)
+//        groupDao = db?.groupDao()
+//        val color = groupDao?.getColor(property.group)
+//        val colorName = groupDao?.getColorName(property.group)
+        viewModel = DetailViewModel(requireContext(), DetailArgs.fromBundle(requireArguments()).property)
+        binding.headerColor.contentDescription = "${viewModel.colorName}"
+        binding.headerColor.setBackgroundColor(Color.parseColor(viewModel.color!!))
 
-        db = appDatabase.getAppDataBase(v.context)
-        groupDao = db?.groupDao()
-        val property = DetailArgs.fromBundle(requireArguments()).property
-        val color = groupDao?.getColor(property.group)
-        val colorName = groupDao?.getColorName(property.group)
-        headerColor.contentDescription = "${colorName}"
-        headerColor.setBackgroundColor(Color.parseColor(color!!))
-        val sharedPref: SharedPreferences = requireContext().getSharedPreferences(PREF_NAME, Context.MODE_PRIVATE)
-        val editor = sharedPref.edit()
-        editor.putInt("idProperty", property!!.idProperty)
-        editor.apply()
-
-        return v
+        return binding.root
     }
 
     override fun onStart() {
         super.onStart()
 
-        viewPager.setAdapter(ViewPagerAdapter(requireActivity()))
+        binding.viewPager.adapter = ViewPagerAdapter(requireActivity())
         // viewPager.isUserInputEnabled = false
 
-        TabLayoutMediator(tabLayout, viewPager, TabLayoutMediator.TabConfigurationStrategy { tab, position ->
+        TabLayoutMediator(
+            binding.tabLayout,
+            binding.viewPager
+        ) { tab, position ->
             when (position) {
-                0 -> tab.text = "${getString(R.string.general)}"
-                1 -> tab.text = "${getString(R.string.sell)}"
+                0 -> tab.text = getString(R.string.general)
+                1 -> tab.text = getString(R.string.mortgage)
                 else -> tab.text = "undefined"
             }
-        }).attach()
+        }.attach()
     }
 
 

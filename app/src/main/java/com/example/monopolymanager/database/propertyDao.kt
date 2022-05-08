@@ -25,7 +25,7 @@ public interface propertyDao {
     fun loadPropertiesByGroup(groupNumber: Int): MutableList<String>
 
     @Query("SELECT name FROM Property WHERE idUser is null AND groupNumber = :groupNumber ORDER BY idProperty")
-    fun loadAvailablePropertiesByGroup(groupNumber: Int): MutableList<String>
+    fun loadAvailablePropertiesByGroup(groupNumber: Int): MutableList<String?>
 
     @Query("SELECT * from Property WHERE idProperty = :id")
     fun loadPropertyById(id: Int): Property?

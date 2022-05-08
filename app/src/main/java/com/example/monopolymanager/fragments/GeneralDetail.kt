@@ -17,6 +17,8 @@ import com.example.monopolymanager.database.appDatabase
 import com.example.monopolymanager.database.groupDao
 import com.example.monopolymanager.database.propertyDao
 import com.example.monopolymanager.database.userDao
+import com.example.monopolymanager.databinding.GeneralDetailFragmentBinding
+
 private var PREF_NAME = "MONOPOLY"
 
 class GeneralDetail : Fragment() {
@@ -25,66 +27,39 @@ class GeneralDetail : Fragment() {
         fun newInstance() = GeneralDetail()
     }
 
-    private var db: appDatabase? = null
-    private var propertyDao: propertyDao? = null
-    private var userDao: userDao? = null
-//    private var groupDao: groupDao? = null
-    lateinit var v: View
-    lateinit var propertyName : TextView
-    lateinit var housesAmt : TextView
-    lateinit var currentRent : TextView
-    lateinit var price : TextView
-    lateinit var noHousesRent : TextView
-    lateinit var oneHouseRent : TextView
-    lateinit var twoHousesRent : TextView
-    lateinit var threeHousesRent : TextView
-    lateinit var fourHousesRent : TextView
-    lateinit var hotelRent : TextView
-    lateinit var editBtn : Button
+    lateinit var binding: GeneralDetailFragmentBinding
 
     private lateinit var viewModel: GeneralDetailViewModel
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
-        v = inflater.inflate(R.layout.general_detail_fragment, container, false)
-        db = appDatabase.getAppDataBase(v.context)
-        propertyDao = db?.propertyDao()
-        propertyName = v.findViewById(R.id.propertyName)
-        housesAmt = v.findViewById(R.id.housesAmt)
-        currentRent = v.findViewById(R.id.currentRent)
-        price = v.findViewById(R.id.price)
-        noHousesRent = v.findViewById(R.id.noHousesRent)
-        oneHouseRent = v.findViewById(R.id.oneHouseRent)
-        twoHousesRent = v.findViewById(R.id.twoHouseRent)
-        threeHousesRent = v.findViewById(R.id.threeHouseRent)
-        fourHousesRent = v.findViewById(R.id.fourHouseRent)
-        hotelRent = v.findViewById(R.id.hotelRent)
-        editBtn = v.findViewById(R.id.editBtn)
-        return v
+    ): View {
+        binding = GeneralDetailFragmentBinding.inflate(layoutInflater)
+        val sharedPref: SharedPreferences = requireContext().getSharedPreferences(PREF_NAME, Context.MODE_PRIVATE)
+        val idProperty = sharedPref.getInt("idProperty", -1)
+        viewModel = GeneralDetailViewModel(context, idProperty)
+        return binding.root
     }
 
     override fun onStart() {
         super.onStart()
 
-        val sharedPref: SharedPreferences = requireContext().getSharedPreferences(PREF_NAME, Context.MODE_PRIVATE)
-        var idProperty = sharedPref.getInt("idProperty", -1)
-        val property = propertyDao?.loadPropertyById(idProperty)
-        propertyName.text = property?.name
-        "${getString(R.string.price)} ${property?.price}".also { price.text = it }
-        "${getString(R.string.rent)} ${property?.getRentPrice()}".also { currentRent.text = it }
-        "${getString(R.string.houses)} ${property?.houses}".also { housesAmt.text = it }
-        val rentArray = property!!.getRentArray()
-        "$${ rentArray[0] }".also { noHousesRent.text = it }
-        "$${ rentArray[1] }".also { oneHouseRent.text = it }
-        "$${ rentArray[2] }".also { twoHousesRent.text = it }
-        "$${ rentArray[3] }".also { threeHousesRent.text = it }
-        "$${ rentArray[4] }".also { fourHousesRent.text = it }
-        "$${property.rentHotel}".also { hotelRent.text = it }
+        val nameId = resources.getIdentifier("com.example.monopolymanager:string/${viewModel.property?.name}", null, null);
+        binding.propertyName.text = resources.getString(nameId)
+        "${getString(R.string.price)} ${viewModel.property?.price}".also { binding.price.text = it }
+        "${getString(R.string.rent)} ${viewModel.property?.getRentPrice()}".also { binding.currentRent.text = it }
+        "${getString(R.string.houses)} ${viewModel.property?.houses}".also { binding.housesAmt.text = it }
+        val rentArray = viewModel.property!!.getRentArray()
+        "$${ rentArray[0] }".also { binding.noHousesRent.text = it }
+        "$${ rentArray[1] }".also { binding.oneHouseRent.text = it }
+        "$${ rentArray[2] }".also { binding.twoHouseRent.text = it }
+        "$${ rentArray[3] }".also { binding.threeHouseRent.text = it }
+        "$${ rentArray[4] }".also { binding.fourHouseRent.text = it }
+        "$${viewModel.property!!.rentHotel}".also { binding.hotelRent.text = it }
 
-        editBtn.setOnClickListener {
-            v.findNavController().navigate(DetailDirections.actionDetailToAddEdit(isAdd = false, property = property))
+        binding.editBtn.setOnClickListener {
+            binding.root.findNavController().navigate(DetailDirections.actionDetailToAddEdit(isAdd = false, property = viewModel.property))
         }
     }
 

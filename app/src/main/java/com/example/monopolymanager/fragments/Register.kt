@@ -18,6 +18,7 @@ import com.google.android.material.snackbar.Snackbar
 import androidx.navigation.findNavController
 import com.example.monopolymanager.database.appDatabase
 import com.example.monopolymanager.database.userDao
+import com.example.monopolymanager.databinding.RegisterFragmentBinding
 
 
 class Register : Fragment() {
@@ -26,53 +27,38 @@ class Register : Fragment() {
         fun newInstance() = Register()
     }
 
-    private var db: appDatabase? = null
-    private var userDao: userDao? = null
+    private lateinit var binding: RegisterFragmentBinding
     private lateinit var viewModel: RegisterViewModel
-    lateinit var password : EditText
-    private lateinit var validatePassword : EditText
-    lateinit var username : EditText
-    lateinit var email : EditText
-    lateinit var register : Button
-    lateinit var v: View
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        v = inflater.inflate(R.layout.register_fragment, container, false)
-        username = v.findViewById(R.id.usernameRegister)
-        email = v.findViewById(R.id.emailRegister)
-        password = v.findViewById(R.id.passwordRegister)
-        validatePassword = v.findViewById(R.id.passwordValidation)
-        register = v.findViewById(R.id.registerBtn)
-        return v
+        binding = RegisterFragmentBinding.inflate(layoutInflater)
+        viewModel = RegisterViewModel(requireContext())
+        return binding.root
     }
 
     override fun onStart() {
         super.onStart()
-        db = appDatabase.getAppDataBase(v.context)
-        userDao = db?.userDao()
-        register.setOnClickListener {
+
+        binding.registerBtn.setOnClickListener {
             if (!allFieldsValidate()) {
-                Snackbar.make(v,"Todos los campos son necesarios", Snackbar.LENGTH_SHORT).show()
+                Snackbar.make(binding.root,"Todos los campos son necesarios", Snackbar.LENGTH_SHORT).show()
             }
-            else if (password.text.toString() != validatePassword.text.toString()) {
-                Snackbar.make(v,"Las contraseñas no coinciden", Snackbar.LENGTH_SHORT).show()
+            else if (binding.passwordRegister.text.toString() != binding.passwordValidation.text.toString()) {
+                Snackbar.make(binding.root,"Las contraseñas no coinciden", Snackbar.LENGTH_SHORT).show()
             }
             else {
-                var u = User(username.text.toString(), password.text.toString(), email.text.toString())
-                if (userDao?.isAvailable(u.getUsername(), u.getMail()) == 0) {
-                    userDao?.insertPerson(u)
-                    v.findNavController().navigate(RegisterDirections.actionRegisterToLogin())
-                } else {
-                    Snackbar.make(v,"Usuario o email no disponibles", Snackbar.LENGTH_SHORT).show()
-                }
+                if(viewModel.validate(binding.usernameRegister.text.toString(), binding.emailRegister.text.toString(), binding.passwordRegister.text.toString()))
+                    binding.root.findNavController().navigate(RegisterDirections.actionRegisterToLogin())
+                else
+                    Snackbar.make(binding.root,"Usuario o email no disponibles", Snackbar.LENGTH_SHORT).show()
             }
         }
     }
 
     private fun allFieldsValidate() : Boolean {
-        return !(TextUtils.isEmpty(username.text) || TextUtils.isEmpty(email.text) || TextUtils.isEmpty(password.text) || TextUtils.isEmpty(validatePassword.text))
+        return !(TextUtils.isEmpty(binding.usernameRegister.text) || TextUtils.isEmpty(binding.passwordRegister.text) || TextUtils.isEmpty(binding.emailRegister.text) || TextUtils.isEmpty(binding.passwordValidation.text))
     }
 }

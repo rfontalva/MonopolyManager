@@ -23,7 +23,6 @@
     <string name="houseAmt">0</string>
     <string name="buy">Buy</string>
     <string name="general">General</string>
-    <string name="sell">Vender</string>
     <string name="hotel">Hotel</string>
     <string name="noHouses">No houses</string>
     <string name="oneHouse">1 house</string>
@@ -41,6 +40,16 @@
     <string name="changeEmail">Change email</string>
     <string name="change">Change</string>
     <string name="changeImage">Change image</string>
+    <string name="dog">Dog</string>
+    <string name="car">Car</string>
+    <string name="hat">Hat</string>
+    <string name="shoe">Shoe</string>
+    <string name="languages_header">Language</string>
+    <string name="app_language">Change app language</string>
+    <string name="createAnAccount">Create an account</string>
+    <string name="favoritePiece">Favorite piece</string>
+
+
 
     <!--colors-->
     <string name="lime">Lime</string>
@@ -82,7 +91,7 @@
     <string name="messages_header">Messages</string>
     <string name="sync_header">Sync</string>
     <string name="session">Session</string>
-    <string name="stayLoggedIn">Stay logged I¿in</string>
+    <string name="stayLoggedIn">Stay logged in</string>
     <string name="logOut">Log Out</string>
 
     <!-- Messages Preferences -->

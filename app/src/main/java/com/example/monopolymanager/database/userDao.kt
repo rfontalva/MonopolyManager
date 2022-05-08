@@ -9,8 +9,8 @@ public interface userDao {
     @Query("SELECT * FROM User ORDER BY idUser")
     fun selectAll(): MutableList<User>
 
-    @Query("SELECT username FROM User WHERE username = :username and password = :password")
-    fun validate(username: String?, password: String?): String?
+    @Query("SELECT * FROM User WHERE username = :username and password = :password")
+    fun validate(username: String?, password: String?): User?
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insertPerson(user: User?)
