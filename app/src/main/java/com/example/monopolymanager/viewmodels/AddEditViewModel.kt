@@ -121,7 +121,7 @@ class AddViewModel(var context: Context) : AddEditViewModel(context) {
 
 }
 
-class EditViewModel(context: Context, override var property: Property?) : AddEditViewModel(context) {
+class EditViewModel(var context: Context, override var property: Property?) : AddEditViewModel(context) {
 
     private var user: User? = null
     private var hasWholeGroup: Boolean = false
@@ -168,11 +168,19 @@ class EditViewModel(context: Context, override var property: Property?) : AddEdi
 
     override fun getColorArray() : MutableList<String?> {
         val color = groupDao?.getColorName(property?.group)
-        return mutableListOf(color!!)
+        val colorNames : MutableList<String?> = mutableListOf()
+        mutableListOf(color!!).forEach {
+            colorNames.add(context.getString(context.resources.getIdentifier("com.example.monopolymanager:string/${it}", null, null)))
+        }
+        return colorNames
     }
 
     override fun getNameArray(groupNumber: Int) : MutableList<String?> {
-        return mutableListOf(property!!.name)
+        val propertyNamesArray : MutableList<String?> = mutableListOf()
+        mutableListOf(property!!.name).forEach {
+            propertyNamesArray.add(context.getString(context.resources.getIdentifier("com.example.monopolymanager:string/${it}", null, null)))
+        }
+        return propertyNamesArray
     }
 
     override fun canBuy() : Pair<Int, Boolean> {

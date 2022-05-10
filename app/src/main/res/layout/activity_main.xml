@@ -23,15 +23,22 @@
         android:id="@+id/bottombar"
         android:layout_width="match_parent"
         android:layout_height="56dp"
-        app:itemHorizontalTranslationEnabled="true"
-        app:labelVisibilityMode="auto"
         android:background="@color/monopoly_red"
         app:itemBackground="@color/monopoly_red"
+        app:itemHorizontalTranslationEnabled="true"
         app:itemIconTint="@drawable/bottom_navigation_selector"
+        app:labelVisibilityMode="auto"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:startDestination="@id/home2"
-        app:menu="@menu/bottombar" />
+        app:menu="@menu/bottombar"
+        app:startDestination="@id/home2" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_begin="675dp" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
