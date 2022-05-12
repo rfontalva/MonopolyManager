@@ -50,6 +50,7 @@ class ProfileFragment : Fragment() {
         binding.avatarSpinner.setSelection(index)
         val avatarSpinnerAdapter: ArrayAdapter<String> =
             ArrayAdapter<String>(this.requireContext(), android.R.layout.simple_spinner_item, avatarNames)
+        avatarSpinnerAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
         binding.avatarSpinner.adapter = avatarSpinnerAdapter
         binding.avatarSpinner.setOnItemSelectedListener(object : AdapterView.OnItemSelectedListener{
             override fun onItemSelected(
@@ -76,7 +77,7 @@ class ProfileFragment : Fragment() {
         }
 
         binding.settingsBtn.setOnClickListener {
-            binding.root.findNavController().navigate(ProfileFragmentDirections.actionSettingsFragmentToSettingsActivity())
+            binding.root.findNavController().navigate(ProfileFragmentDirections.actionProfileFragmentToSettingsActivity())
         }
 
         binding.logOutBtn.setOnClickListener {

@@ -104,8 +104,8 @@ class AddEdit : Fragment() {
     private fun setUpSpinners() {
         val colorSpinnerAdapter: ArrayAdapter<String> =
             ArrayAdapter<String>(this.requireContext(), android.R.layout.simple_spinner_item, viewModel.getColorArray())
+        colorSpinnerAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         binding.colorSpinner.adapter = colorSpinnerAdapter
-
         if (!isAdd) {
             val propertySpinnerAdapter = ArrayAdapter(
                 binding.root.context,
@@ -124,6 +124,7 @@ class AddEdit : Fragment() {
                     id: Long
                 ) {
                     val propertySpinnerAdapter = ArrayAdapter(binding.root.context, android.R.layout.simple_spinner_item, viewModel.getNameArray(position))
+                    propertySpinnerAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
                     binding.nameSpinner.adapter = propertySpinnerAdapter
                     binding.nameSpinner.setOnItemSelectedListener(object : AdapterView.OnItemSelectedListener{
                         override fun onItemSelected(

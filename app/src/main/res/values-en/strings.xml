@@ -48,6 +48,11 @@
     <string name="app_language">Change app language</string>
     <string name="createAnAccount">Create an account</string>
     <string name="favoritePiece">Favorite piece</string>
+    <string name="ok">Accept</string>
+    <string name="cancel">Cancel</string>
+    <string name="sell">Sell</string>
+    <string name="sellDetails">If you sell this property and you have others of the same group with houses, these will be sold and you will get half of what you paid for them.</string>
+    <string name="unmortgageFirst">This property is mortgaged. Pay it\'s mortgage first before selling it.</string>
 
 
 

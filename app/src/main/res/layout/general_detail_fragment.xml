@@ -7,22 +7,37 @@
     android:layout_height="match_parent"
     tools:context=".fragments.GeneralDetail">
 
-    <Button
-        android:id="@+id/editBtn"
-        android:layout_width="127dp"
-        android:layout_height="55dp"
-        android:text="@string/edit"
-        app:layout_constraintBottom_toTopOf="@+id/tableLayout"
+    <TextView
+        android:id="@+id/isMortgagedTxt2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="32dp"
+        android:fontFamily="@font/futura"
+        android:text="@string/isMortgaged"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.79"
-        app:layout_constraintStart_toEndOf="@+id/price"
-        app:layout_constraintTop_toBottomOf="@+id/propertyName"
-        app:layout_constraintVertical_bias="0.588" />
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/propertyName" />
+
+    <TextView
+        android:id="@+id/mortgageTxt"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="40dp"
+        android:layout_marginTop="68dp"
+        android:fontFamily="@font/futura"
+        android:text="@string/mortgagePrice"
+        android:textSize="24sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/price" />
 
     <TextView
         android:id="@+id/propertyName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:fontFamily="@font/copperplate_bold"
         android:text="@string/property"
         android:textSize="24sp"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -36,217 +51,76 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="40dp"
-        android:layout_marginBottom="12dp"
+        android:layout_marginTop="48dp"
+        android:fontFamily="@font/futura"
         android:text="@string/rent"
         android:textSize="20sp"
-        app:layout_constraintBottom_toTopOf="@+id/price"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/housesAmt" />
 
     <TextView
         android:id="@+id/housesAmt"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="40dp"
+        android:layout_marginTop="72dp"
+        android:fontFamily="@font/futura"
         android:text="@string/houses"
         android:textSize="20sp"
-        app:layout_constraintBottom_toTopOf="@+id/currentRent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/propertyName"
-        app:layout_constraintVertical_bias="0.912" />
+        app:layout_constraintTop_toBottomOf="@+id/propertyName" />
 
     <TextView
         android:id="@+id/price"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="39dp"
-        android:layout_marginBottom="28dp"
+        android:layout_marginStart="40dp"
+        android:layout_marginTop="48dp"
+        android:fontFamily="@font/futura"
         android:text="@string/price"
         android:textSize="20sp"
-        app:layout_constraintBottom_toTopOf="@+id/tableLayout"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent" />
-
-    <TableLayout
-        android:id="@+id/tableLayout"
-        android:layout_width="412dp"
-        android:layout_height="295dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/propertyName"
-        app:layout_constraintVertical_bias="0.707">
+        app:layout_constraintTop_toBottomOf="@+id/currentRent" />
 
-        <TableRow
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:background="@color/green_moss">
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/sellBtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="44dp"
+        android:layout_marginBottom="80dp"
+        android:clickable="true"
+        android:src="@drawable/sell"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
 
-            <TextView
-                android:id="@+id/textView14"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="6"
-                android:gravity="center_horizontal"
-                android:padding="10sp"
-                android:text="@string/houses"
-                android:textColor="#1B5E20" />
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/mortgageBtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="44dp"
+        android:layout_marginBottom="16dp"
+        android:clickable="true"
+        android:contentDescription="@string/mortgage"
+        android:src="@drawable/mortgage"
+        app:layout_constraintBottom_toTopOf="@+id/sellBtn"
+        app:layout_constraintEnd_toEndOf="parent" />
 
-            <TextView
-                android:id="@+id/textView12"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="6"
-                android:gravity="center_horizontal"
-                android:padding="10sp"
-                android:text="@string/rent"
-                android:textColor="#1B5E20" />
-
-        </TableRow>
-
-        <TableRow
-            android:id="@+id/noHouseRow"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
-
-            <TextView
-                android:id="@+id/textView20"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="6"
-                android:gravity="center_horizontal"
-                android:padding="10sp"
-                android:text="@string/noHouses" />
-
-            <TextView
-                android:id="@+id/noHousesRent"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="6"
-                android:gravity="center_horizontal"
-                android:padding="10sp" />
-        </TableRow>
-
-        <TableRow
-            android:id="@+id/House1Row"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
-
-            <TextView
-                android:id="@+id/textView15"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="6"
-                android:gravity="center_horizontal"
-                android:padding="10sp"
-                android:text="@string/oneHouse" />
-
-            <TextView
-                android:id="@+id/oneHouseRent"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="6"
-                android:gravity="center_horizontal"
-                android:padding="10sp" />
-        </TableRow>
-
-        <TableRow
-            android:id="@+id/House2Row"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
-
-            <TextView
-                android:id="@+id/textView16"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="6"
-                android:gravity="center_horizontal"
-                android:padding="10sp"
-                android:text="@string/twoHouses" />
-
-            <TextView
-                android:id="@+id/twoHouseRent"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="6"
-                android:gravity="center_horizontal"
-                android:padding="10sp" />
-        </TableRow>
-
-        <TableRow
-            android:id="@+id/House3Row"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
-
-            <TextView
-                android:id="@+id/textView18"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="6"
-                android:gravity="center_horizontal"
-                android:padding="10sp"
-                android:text="@string/threeHouses" />
-
-            <TextView
-                android:id="@+id/threeHouseRent"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="6"
-                android:gravity="center_horizontal"
-                android:padding="10sp" />
-        </TableRow>
-
-        <TableRow
-            android:id="@+id/House4Row"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
-
-            <TextView
-                android:id="@+id/textView19"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="6"
-                android:gravity="center_horizontal"
-                android:padding="10sp"
-                android:text="@string/fourHouses" />
-
-            <TextView
-                android:id="@+id/fourHouseRent"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="6"
-                android:gravity="center_horizontal"
-                android:padding="10sp" />
-        </TableRow>
-
-        <TableRow
-            android:id="@+id/hotelRow"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
-
-            <TextView
-                android:id="@+id/textView27"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="6"
-                android:gravity="center_horizontal"
-                android:padding="10sp"
-                android:text="@string/hotel" />
-
-            <TextView
-                android:id="@+id/hotelRent"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="6"
-                android:gravity="center_horizontal"
-                android:padding="10sp" />
-        </TableRow>
-
-    </TableLayout>
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/editBtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="44dp"
+        android:layout_marginBottom="16dp"
+        android:clickable="true"
+        android:contentDescription="@string/edit"
+        android:src="@android:drawable/ic_menu_edit"
+        app:layout_constraintBottom_toTopOf="@+id/mortgageBtn"
+        app:layout_constraintEnd_toEndOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

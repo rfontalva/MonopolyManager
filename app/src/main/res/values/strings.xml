@@ -46,7 +46,11 @@
     <string name="app_language">Cambiar el idioma de la aplicación</string>
     <string name="createAnAccount">Crea una cuenta</string>
     <string name="favoritePiece">Pieza favorita</string>
-
+    <string name="sell">Vender</string>
+    <string name="ok">Aceptar</string>
+    <string name="cancel">Cancelar</string>
+    <string name="sellDetails">Si vendes esta propiedad y tienes casas en otras propiedades del mismo grupo, todas ellas se venderan y obtendrás la mitad de lo que las pagaste</string>
+    <string name="unmortgageFirst">Esta propiedad esta hipotecada. Pague la hipoteca antes de venderla.</string>
 
 
     <!--properties  names-->

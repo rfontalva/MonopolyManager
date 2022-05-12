@@ -42,23 +42,13 @@ class SellDetail : Fragment() {
 
     override fun onStart() {
         super.onStart()
-        "${getString(R.string.mortgagePrice)} ${viewModel.property?.mortgage}".also { binding.mortgageTxt.text = it }
-        if (viewModel.property!!.isMortgaged) {
-            binding.mortgageBtn.text = getString(R.string.unmortgage)
-        }
-        binding.mortgageBtn.setOnClickListener {
-            val succesful = viewModel.mortgage()
-            if (viewModel.isMortgaged()) {
-                binding.mortgageBtn.text = getString(R.string.unmortgage)
-            } else {
-                binding.mortgageBtn.text = getString(R.string.mortgage)
-            }
-            if (!succesful!!) {
-                Snackbar.make(binding.root,getString(R.string.notEnoughCash), Snackbar.LENGTH_SHORT).show()
-            } else {
-                viewModel.update()
-            }
-        }
+        val rentArray = viewModel.property!!.getRentArray()
+        "$${ rentArray[0] }".also { binding.noHousesRent.text = it }
+        "$${ rentArray[1] }".also { binding.oneHouseRent.text = it }
+        "$${ rentArray[2] }".also { binding.twoHouseRent.text = it }
+        "$${ rentArray[3] }".also { binding.threeHouseRent.text = it }
+        "$${ rentArray[4] }".also { binding.fourHouseRent.text = it }
+        "$${viewModel.property!!.rentHotel}".also { binding.hotelRent.text = it }
     }
 
 }
