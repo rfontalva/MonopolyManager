@@ -9,65 +9,64 @@
 
     <TableLayout
         android:id="@+id/tableLayout"
-        android:layout_width="412dp"
-        android:layout_height="295dp"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_width="413dp"
+        android:layout_height="wrap_content"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.44">
+        app:layout_constraintTop_toTopOf="parent">
 
         <TableRow
+            android:id="@+id/titleDeedRow"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:background="@color/green_moss">
 
             <TextView
-                android:id="@+id/textView14"
+                android:id="@+id/titleDeed"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="6"
+                android:fontFamily="@font/copperplate_bold"
                 android:gravity="center_horizontal"
                 android:padding="10sp"
-                android:text="@string/houses"
-                android:textColor="#1B5E20" />
-
-            <TextView
-                android:id="@+id/textView12"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="6"
-                android:gravity="center_horizontal"
-                android:padding="10sp"
-                android:text="@string/rent"
-                android:textColor="#1B5E20" />
-
+                android:text="@string/titleDeed"
+                android:textColor="@color/white" />
         </TableRow>
 
         <TableRow
-            android:id="@+id/noHouseRow"
+            android:id="@+id/propertyNameRow"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/green_moss">
+
+            <TextView
+                android:id="@+id/propertyNameCard"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="6"
+                android:fontFamily="@font/copperplate_bold"
+                android:gravity="center_horizontal"
+                android:padding="20sp"
+                android:text="@string/property"
+                android:textColor="@color/white"
+                android:textSize="20sp" />
+        </TableRow>
+
+        <TableRow
+            android:id="@+id/rentRow"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
             <TextView
-                android:id="@+id/textView20"
-                android:layout_width="wrap_content"
+                android:id="@+id/rentPrice"
+                android:layout_width="221dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="6"
                 android:fontFamily="@font/futura"
                 android:gravity="center_horizontal"
                 android:padding="10sp"
-                android:text="@string/noHouses" />
+                android:text="@string/rent" />
 
-            <TextView
-                android:id="@+id/noHousesRent"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="6"
-                android:fontFamily="@font/futura"
-                android:gravity="center_horizontal"
-                android:padding="10sp" />
         </TableRow>
 
         <TableRow
@@ -77,8 +76,8 @@
 
             <TextView
                 android:id="@+id/textView15"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="0px"
+                android:layout_height="match_parent"
                 android:layout_weight="6"
                 android:fontFamily="@font/futura"
                 android:gravity="center_horizontal"
@@ -87,7 +86,7 @@
 
             <TextView
                 android:id="@+id/oneHouseRent"
-                android:layout_width="wrap_content"
+                android:layout_width="0px"
                 android:layout_height="wrap_content"
                 android:layout_weight="6"
                 android:fontFamily="@font/futura"
@@ -102,7 +101,7 @@
 
             <TextView
                 android:id="@+id/textView16"
-                android:layout_width="wrap_content"
+                android:layout_width="0px"
                 android:layout_height="wrap_content"
                 android:layout_weight="6"
                 android:fontFamily="@font/futura"
@@ -112,7 +111,7 @@
 
             <TextView
                 android:id="@+id/twoHouseRent"
-                android:layout_width="wrap_content"
+                android:layout_width="0px"
                 android:layout_height="wrap_content"
                 android:layout_weight="6"
                 android:fontFamily="@font/futura"
@@ -127,7 +126,7 @@
 
             <TextView
                 android:id="@+id/textView18"
-                android:layout_width="wrap_content"
+                android:layout_width="0px"
                 android:layout_height="wrap_content"
                 android:layout_weight="6"
                 android:fontFamily="@font/futura"
@@ -137,7 +136,7 @@
 
             <TextView
                 android:id="@+id/threeHouseRent"
-                android:layout_width="wrap_content"
+                android:layout_width="0px"
                 android:layout_height="wrap_content"
                 android:layout_weight="6"
                 android:fontFamily="@font/futura"
@@ -152,7 +151,7 @@
 
             <TextView
                 android:id="@+id/textView19"
-                android:layout_width="wrap_content"
+                android:layout_width="0px"
                 android:layout_height="wrap_content"
                 android:layout_weight="6"
                 android:fontFamily="@font/futura"
@@ -162,7 +161,7 @@
 
             <TextView
                 android:id="@+id/fourHouseRent"
-                android:layout_width="wrap_content"
+                android:layout_width="0px"
                 android:layout_height="wrap_content"
                 android:layout_weight="6"
                 android:fontFamily="@font/futura"
@@ -177,7 +176,7 @@
 
             <TextView
                 android:id="@+id/textView27"
-                android:layout_width="wrap_content"
+                android:layout_width="0px"
                 android:layout_height="wrap_content"
                 android:layout_weight="6"
                 android:fontFamily="@font/futura"
@@ -187,12 +186,73 @@
 
             <TextView
                 android:id="@+id/hotelRent"
-                android:layout_width="wrap_content"
+                android:layout_width="0px"
                 android:layout_height="wrap_content"
                 android:layout_weight="6"
                 android:fontFamily="@font/futura"
                 android:gravity="center_horizontal"
                 android:padding="10sp" />
+        </TableRow>
+
+        <TableRow
+            android:id="@+id/mortgageRow"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:id="@+id/mortgagePriceTxt"
+                android:layout_width="0px"
+                android:layout_height="wrap_content"
+                android:layout_weight="6"
+                android:fontFamily="@font/futura"
+                android:gravity="center_horizontal"
+                android:padding="10sp"
+                android:text="@string/mortgagePrice" />
+
+            <TextView
+                android:id="@+id/mortgagePrice"
+                android:layout_width="0px"
+                android:layout_height="wrap_content"
+                android:layout_weight="6"
+                android:fontFamily="@font/futura"
+                android:gravity="center_horizontal"
+                android:padding="10sp" />
+
+        </TableRow>
+
+        <TableRow
+            android:id="@+id/housingPriceRow"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:id="@+id/housingPrice"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="6"
+                android:fontFamily="@font/futura"
+                android:gravity="center_horizontal"
+                android:padding="10sp"
+                android:text="@string/housingPrice1" />
+
+        </TableRow>
+
+        <TableRow
+            android:id="@+id/hasWholeGroupRow"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:id="@+id/doubleRule"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="7dp"
+                android:layout_marginEnd="6dp"
+                android:layout_weight="6"
+                android:fontFamily="@font/futura"
+                android:gravity="center_horizontal"
+                android:padding="10sp"
+                android:text="@string/hasWholeColor" />
         </TableRow>
 
     </TableLayout>

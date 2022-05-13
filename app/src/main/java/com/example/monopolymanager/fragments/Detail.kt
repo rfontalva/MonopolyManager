@@ -41,13 +41,7 @@ class Detail : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         binding = DetailFragmentBinding.inflate(layoutInflater)
-//        db = appDatabase.getAppDataBase(v.context)
-//        groupDao = db?.groupDao()
-//        val color = groupDao?.getColor(property.group)
-//        val colorName = groupDao?.getColorName(property.group)
         viewModel = DetailViewModel(requireContext(), DetailArgs.fromBundle(requireArguments()).property)
-        binding.headerColor.contentDescription = "${viewModel.colorName}"
-        binding.headerColor.setBackgroundColor(Color.parseColor(viewModel.color!!))
 
         return binding.root
     }
@@ -64,7 +58,7 @@ class Detail : Fragment() {
         ) { tab, position ->
             when (position) {
                 0 -> tab.text = getString(R.string.general)
-                1 -> tab.text = getString(R.string.mortgage)
+                1 -> tab.text = getString(R.string.titleDeed)
                 else -> tab.text = "undefined"
             }
         }.attach()

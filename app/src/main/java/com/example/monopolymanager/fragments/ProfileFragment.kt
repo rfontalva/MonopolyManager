@@ -11,8 +11,10 @@ import android.view.ViewGroup
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import androidx.navigation.findNavController
+import com.example.monopolymanager.R
 import com.example.monopolymanager.databinding.ProfileFragmentBinding
 import com.example.monopolymanager.viewmodels.ProfileViewModel
+import com.google.android.material.snackbar.Snackbar
 
 private var PREF_NAME = "MONOPOLY"
 class ProfileFragment : Fragment() {
@@ -38,7 +40,7 @@ class ProfileFragment : Fragment() {
 
         val avatarId = viewModel.getAvatar()
         binding.avatarImg.setImageResource(avatarId)
-        val avatars = mutableListOf("dog", "car", "hat", "shoe")
+        val avatars = mutableListOf("dog", "car", "hat", "shoe", "boat")
         val avatarIds : MutableList<Int> = mutableListOf()
         val avatarNames : MutableList<String> = mutableListOf()
         avatars.forEach {
@@ -47,7 +49,7 @@ class ProfileFragment : Fragment() {
         }
 
         val index = avatarIds.indexOf(avatarId)
-        binding.avatarSpinner.setSelection(index)
+
         val avatarSpinnerAdapter: ArrayAdapter<String> =
             ArrayAdapter<String>(this.requireContext(), android.R.layout.simple_spinner_item, avatarNames)
         avatarSpinnerAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
@@ -69,11 +71,16 @@ class ProfileFragment : Fragment() {
             }
         })
 
+        binding.avatarSpinner.setSelection(index)
         binding.editMail.setText(viewModel.getEmail())
 
         binding.changeBtn.setOnClickListener {
             val text = binding.editMail.text.toString()
-            viewModel.updateEmail(text)
+            if (viewModel.updateEmail(text)) {
+                Snackbar.make(binding.root,getString(R.string.emailUpdated), Snackbar.LENGTH_SHORT).show()
+            } else {
+                Snackbar.make(binding.root,getString(R.string.emailNotAvailable), Snackbar.LENGTH_SHORT).show()
+            }
         }
 
         binding.settingsBtn.setOnClickListener {

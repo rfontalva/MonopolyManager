@@ -44,6 +44,7 @@
     <string name="car">Car</string>
     <string name="hat">Hat</string>
     <string name="shoe">Shoe</string>
+    <string name="boat">Boat</string>
     <string name="languages_header">Language</string>
     <string name="app_language">Change app language</string>
     <string name="createAnAccount">Create an account</string>
@@ -53,8 +54,13 @@
     <string name="sell">Sell</string>
     <string name="sellDetails">If you sell this property and you have others of the same group with houses, these will be sold and you will get half of what you paid for them.</string>
     <string name="unmortgageFirst">This property is mortgaged. Pay it\'s mortgage first before selling it.</string>
-
-
+    <string name="titleDeed">Title deed</string>
+    <string name="housingPrice1">Each house costs $</string>
+    <string name="housingPrice2">\nHotels cost $</string>
+    <string name="housingPrice3">, plus 4 houses.</string>
+    <string name="hasWholeColor">When a player has all the title deeds of all the properties in a color group, the rent value of unedified properties is doubled.</string>
+    <string name="emailUpdated">Email updated.</string>
+    <string name="emailNotAvailable">Email not available. Pick another one.</string>
 
     <!--colors-->
     <string name="lime">Lime</string>

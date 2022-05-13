@@ -30,4 +30,6 @@ public interface userDao {
     @Query("SELECT COUNT(*) FROM User WHERE username = :username and mail = :mail")
     fun isAvailable(username: String?, mail: String?): Int
 
+    @Query("SELECT COUNT(*) FROM User WHERE mail = :mail")
+    fun existingEmails(mail: String?): Int
 }

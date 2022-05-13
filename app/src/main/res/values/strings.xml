@@ -16,7 +16,7 @@
     <string name="add">Agregar propiedad</string>
     <string name="edit">Editar propiedad</string>
     <string name="houses">Casas:</string>
-    <string name="rent">Renta:</string>
+    <string name="rent">Alquiler:</string>
     <string name="price">Precio:</string>
     <string name="houseAmt">0</string>
     <string name="buy">Comprar</string>
@@ -42,6 +42,7 @@
     <string name="car">Auto</string>
     <string name="hat">Sombrero</string>
     <string name="shoe">Zapato</string>
+    <string name="boat">Barco</string>
     <string name="languages_header">Idioma</string>
     <string name="app_language">Cambiar el idioma de la aplicación</string>
     <string name="createAnAccount">Crea una cuenta</string>
@@ -51,7 +52,13 @@
     <string name="cancel">Cancelar</string>
     <string name="sellDetails">Si vendes esta propiedad y tienes casas en otras propiedades del mismo grupo, todas ellas se venderan y obtendrás la mitad de lo que las pagaste</string>
     <string name="unmortgageFirst">Esta propiedad esta hipotecada. Pague la hipoteca antes de venderla.</string>
-
+    <string name="titleDeed">Titulo de propiedad</string>
+    <string name="housingPrice1">Las casas cuestan $</string>
+    <string name="housingPrice2">c/u.\nLos hoteles $</string>
+    <string name="housingPrice3">, más 4 casas.</string>
+    <string name="hasWholeColor">Cuando un jugador posee los títulos de propiedad de todos los terrenos de un grupo completo de un color, se dobla el alquiler de los terrenos sin edificar.</string>
+    <string name="emailUpdated">Email actualizado.</string>
+    <string name="emailNotAvailable">Email no disponible. Elija otro.</string>
 
     <!--properties  names-->
     <string name="mediterranean">Avenida Mediterráneo</string>

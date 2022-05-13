@@ -25,9 +25,13 @@ class ProfileViewModel(context: Context) : ViewModel() {
         return user!!.getMail()!!
     }
 
-    fun updateEmail(newEmail: String) {
-        user?.setMail(newEmail)
-        userDao?.updatePerson(user)
+    fun updateEmail(newEmail: String) : Boolean{
+        var existingEmails = userDao?.existingEmails(newEmail)
+        if (existingEmails == 0) {
+            user?.setMail(newEmail)
+            userDao?.updatePerson(user)
+        }
+        return existingEmails == 0
     }
 
     fun updateAvatar(id: Int) {

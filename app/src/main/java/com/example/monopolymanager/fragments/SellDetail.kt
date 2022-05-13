@@ -2,6 +2,7 @@ package com.example.monopolymanager.fragments
 
 import android.content.Context
 import android.content.SharedPreferences
+import android.graphics.Color
 import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -42,13 +43,20 @@ class SellDetail : Fragment() {
 
     override fun onStart() {
         super.onStart()
+        binding.titleDeedRow.setBackgroundColor(Color.parseColor(viewModel.color))
+        binding.propertyNameRow.setBackgroundColor(Color.parseColor(viewModel.color))
+        val nameId = resources.getIdentifier("com.example.monopolymanager:string/${viewModel.property?.name}", null, null);
+        binding.propertyNameCard.text = resources.getString(nameId)
         val rentArray = viewModel.property!!.getRentArray()
-        "$${ rentArray[0] }".also { binding.noHousesRent.text = it }
+        "${getString(R.string.rent)} $${rentArray[0]}".also { binding.rentPrice.text = it }
         "$${ rentArray[1] }".also { binding.oneHouseRent.text = it }
         "$${ rentArray[2] }".also { binding.twoHouseRent.text = it }
         "$${ rentArray[3] }".also { binding.threeHouseRent.text = it }
         "$${ rentArray[4] }".also { binding.fourHouseRent.text = it }
         "$${viewModel.property!!.rentHotel}".also { binding.hotelRent.text = it }
+        "$${viewModel.property!!.mortgage}".also { binding.mortgagePrice.text = it }
+        ("${getString(R.string.housingPrice1)} ${viewModel.housePrice} ${getString(R.string.housingPrice2)}" +
+            "${viewModel.housePrice} ${getString(R.string.housingPrice3)}").also { binding.housingPrice.text = it }
     }
 
 }

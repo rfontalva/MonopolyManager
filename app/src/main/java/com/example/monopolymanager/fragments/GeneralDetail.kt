@@ -82,7 +82,7 @@ class GeneralDetail : Fragment() {
                     .setMessage(getString(R.string.sellDetails))
                     .setPositiveButton(getString(R.string.ok)) { _, _ ->
                         viewModel.sell()
-                        binding.root.findNavController().navigate(DetailDirections.actionDetailToAddEdit(isAdd = false, property = viewModel.property))
+                        binding.root.findNavController().navigate(GeneralDetailDirections.actionGeneralDetailToHome2())
                     }
                     .setNegativeButton(getString(R.string.cancel), /* listener = */ null)
                     .show();
