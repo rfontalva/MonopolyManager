@@ -61,6 +61,7 @@
     <string name="hasWholeColor">When a player has all the title deeds of all the properties in a color group, the rent value of unedified properties is doubled.</string>
     <string name="emailUpdated">Email updated.</string>
     <string name="emailNotAvailable">Email not available. Pick another one.</string>
+    <string name="menu">Menu.</string>
 
     <!--colors-->
     <string name="lime">Lime</string>

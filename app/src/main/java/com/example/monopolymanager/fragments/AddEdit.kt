@@ -14,7 +14,6 @@ import com.example.monopolymanager.viewmodels.AddViewModel
 import com.example.monopolymanager.viewmodels.EditViewModel
 import com.google.android.material.snackbar.Snackbar
 
-private var PREF_NAME = "MONOPOLY"
 
 class AddEdit : Fragment() {
 
@@ -54,6 +53,7 @@ class AddEdit : Fragment() {
         if (!isAdd) {
             "${getString(R.string.price)} ${viewModel.getPrice()}".also { binding.priceTxt.text = it}
             "${getString(R.string.rent)} ${viewModel.getRentPrice()}".also { binding.rentTxt.text = it}
+            binding.housesAmtTxt.text = "${viewModel.getHousesAmt()}"
         }
     }
 

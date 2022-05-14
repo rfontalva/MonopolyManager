@@ -1,8 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<menu xmlns:android="http://schemas.android.com/apk/res/android">
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
     <item
         android:id="@+id/home2"
         android:icon="@drawable/home"
+        app:itemTextColor="@color/white"
         android:title="@string/home" />
 
     <item
@@ -10,4 +12,4 @@
         android:icon="@drawable/user"
         android:title="@string/settings" />
 
-</menu>
+</menu >

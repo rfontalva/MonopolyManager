@@ -59,6 +59,7 @@
     <string name="hasWholeColor">Cuando un jugador posee los títulos de propiedad de todos los terrenos de un grupo completo de un color, se dobla el alquiler de los terrenos sin edificar.</string>
     <string name="emailUpdated">Email actualizado.</string>
     <string name="emailNotAvailable">Email no disponible. Elija otro.</string>
+    <string name="menu">Menu.</string>
 
     <!--properties  names-->
     <string name="mediterranean">Avenida Mediterráneo</string>

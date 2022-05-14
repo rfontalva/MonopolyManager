@@ -1,25 +1,19 @@
 package com.example.monopolymanager.fragments
 
 import android.content.Context
+import android.content.Intent
 import android.content.SharedPreferences
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
+import androidx.fragment.app.Fragment
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import com.example.monopolymanager.R
-import com.example.monopolymanager.database.appDatabase
-import com.example.monopolymanager.database.propertyDao
-import com.example.monopolymanager.database.userDao
 import com.example.monopolymanager.databinding.HomeFragmentBinding
-import com.example.monopolymanager.entities.Property
 import com.example.monopolymanager.propertyAdapter.PropertyAdapter
 import com.example.monopolymanager.viewmodels.HomeViewModel
-import com.google.android.material.floatingactionbutton.FloatingActionButton
 
 
 private var PREF_NAME = "MONOPOLY"

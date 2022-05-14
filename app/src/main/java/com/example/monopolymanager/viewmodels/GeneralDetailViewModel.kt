@@ -47,20 +47,18 @@ class GeneralDetailViewModel(context: Context?) : ViewModel() {
             var ppties = propertyDao?.loadAllInGroup(property!!.group)
             var group = groupDao?.getGroupByNumber(property!!.group)
             ppties?.forEach {
-                if (it.name == property!!.name)
-                    ppties.remove(it)
-                else {
+                if (it.name != property!!.name) {
                     for (i in 0..it.houses) {
                         it.removeHouse()
-                        user!!.charge(group?.pricePerHouse!! /2)
+                        user!!.charge(group?.pricePerHouse!! / 2)
                     }
+                    propertyDao?.updateProperty(it)
                 }
-                propertyDao?.updateProperty(it)
             }
-            property!!.idOwner = null
-            user!!.charge(property!!.price)
-            update()
         }
+        property!!.idOwner = null
+        user!!.charge(property!!.price)
+        update()
     }
 
     fun update() {
