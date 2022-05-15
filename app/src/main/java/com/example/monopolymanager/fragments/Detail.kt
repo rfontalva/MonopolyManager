@@ -1,24 +1,17 @@
 package com.example.monopolymanager.fragments
 
-import android.content.Context
-import android.content.SharedPreferences
-import android.graphics.Color
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
 import androidx.fragment.app.FragmentActivity
 import androidx.viewpager2.adapter.FragmentStateAdapter
-import androidx.viewpager2.widget.ViewPager2
 import com.example.monopolymanager.R
 import com.example.monopolymanager.database.appDatabase
 import com.example.monopolymanager.database.groupDao
-import com.example.monopolymanager.database.userDao
 import com.example.monopolymanager.databinding.DetailFragmentBinding
 import com.example.monopolymanager.viewmodels.DetailViewModel
-import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
 
 

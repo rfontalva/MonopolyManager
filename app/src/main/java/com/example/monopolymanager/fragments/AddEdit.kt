@@ -20,7 +20,6 @@ class AddEdit : Fragment() {
     lateinit var binding: AddEditFragmentBinding
     var isAdd : Boolean = true
     var idUser : Int = 0
-    var totalPrice = 0
 
     companion object {
         fun newInstance() = AddEdit()

@@ -2,14 +2,12 @@ package com.example.monopolymanager
 
 import android.content.Context
 import android.content.SharedPreferences
-import android.os.Build
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.preference.ListPreference
 import androidx.preference.Preference
 import androidx.preference.PreferenceFragmentCompat
 import androidx.preference.SwitchPreferenceCompat
-import com.example.monopolymanager.databinding.SettingsActivityBinding
 import com.example.monopolymanager.utils.switchLocal
 
 

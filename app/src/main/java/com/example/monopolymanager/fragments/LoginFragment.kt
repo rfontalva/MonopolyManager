@@ -1,25 +1,17 @@
 package com.example.monopolymanager.fragments
 
 import android.content.Context
-import android.content.Intent
 import android.content.SharedPreferences
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
-import android.widget.EditText
 import androidx.navigation.findNavController
 import com.example.monopolymanager.R
 import com.example.monopolymanager.viewmodels.LoginViewModel
 import com.example.monopolymanager.Login
-import com.example.monopolymanager.MainActivity
-import com.example.monopolymanager.database.appDatabase
-import com.example.monopolymanager.database.userDao
 import com.example.monopolymanager.databinding.LoginFragmentBinding
-import com.example.monopolymanager.entities.PropertiesRepository
-import com.example.monopolymanager.utils.switchLocal
 import com.google.android.material.snackbar.Snackbar
 
 private var PREF_NAME = "MONOPOLY"

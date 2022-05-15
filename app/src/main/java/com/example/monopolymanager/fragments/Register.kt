@@ -1,23 +1,14 @@
 package com.example.monopolymanager.fragments
 
-import android.graphics.Color
-import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
 import android.text.TextUtils
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
-import android.widget.EditText
-import com.example.monopolymanager.R
 import com.example.monopolymanager.viewmodels.RegisterViewModel
-import com.example.monopolymanager.entities.User
-import com.example.monopolymanager.Login
 import com.google.android.material.snackbar.Snackbar
 import androidx.navigation.findNavController
-import com.example.monopolymanager.database.appDatabase
-import com.example.monopolymanager.database.userDao
 import com.example.monopolymanager.databinding.RegisterFragmentBinding
 
 

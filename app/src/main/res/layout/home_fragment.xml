@@ -10,7 +10,7 @@
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/propertiesList"
         android:layout_width="match_parent"
-        android:layout_height="459dp"
+        android:layout_height="453dp"
         android:layout_marginTop="173dp" />
 
     <TextView

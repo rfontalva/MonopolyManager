@@ -1,8 +1,5 @@
 package com.example.monopolymanager.fragments
 
-import android.content.Context
-import android.content.Intent
-import android.content.SharedPreferences
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -15,8 +12,6 @@ import com.example.monopolymanager.databinding.HomeFragmentBinding
 import com.example.monopolymanager.propertyAdapter.PropertyAdapter
 import com.example.monopolymanager.viewmodels.HomeViewModel
 
-
-private var PREF_NAME = "MONOPOLY"
 
 class Home : Fragment() {
 

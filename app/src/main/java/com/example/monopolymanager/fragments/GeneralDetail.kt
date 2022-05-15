@@ -1,9 +1,6 @@
 package com.example.monopolymanager.fragments
 
-import android.content.Context
 import android.content.DialogInterface
-import android.content.SharedPreferences
-import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -11,15 +8,9 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.animation.Animation
 import android.view.animation.AnimationUtils
-import android.widget.Button
-import android.widget.TextView
 import androidx.navigation.findNavController
 import com.example.monopolymanager.viewmodels.GeneralDetailViewModel
 import com.example.monopolymanager.R
-import com.example.monopolymanager.database.appDatabase
-import com.example.monopolymanager.database.groupDao
-import com.example.monopolymanager.database.propertyDao
-import com.example.monopolymanager.database.userDao
 import com.example.monopolymanager.databinding.GeneralDetailFragmentBinding
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.android.material.snackbar.Snackbar
@@ -55,31 +46,9 @@ class GeneralDetail : Fragment() {
         super.onStart()
 
         binding.menuBtn.setOnClickListener {
-            if (!isOpen) {
-                binding.sellBtn.visibility = View.VISIBLE
-                binding.mortgageBtn.visibility = View.VISIBLE
-                binding.editBtn.visibility = View.VISIBLE
-                binding.mortgageBtn.isClickable = true
-                binding.editBtn.isClickable = true
-                binding.sellBtn.isClickable = true
-                binding.sellBtn.startAnimation(fromBottom)
-                binding.mortgageBtn.startAnimation(fromBottom)
-                binding.editBtn.startAnimation(fromBottom)
-                binding.menuBtn.startAnimation(rotateOpen)
-                isOpen = true
-            } else {
-                binding.sellBtn.visibility = View.GONE
-                binding.mortgageBtn.visibility = View.GONE
-                binding.editBtn.visibility = View.GONE
-                binding.mortgageBtn.isClickable = false
-                binding.editBtn.isClickable = false
-                binding.sellBtn.isClickable = false
-                binding.sellBtn.startAnimation(toBottom)
-                binding.mortgageBtn.startAnimation(toBottom)
-                binding.editBtn.startAnimation(toBottom)
-                binding.menuBtn.startAnimation(rotateClose)
-                isOpen = false
-            }
+            toggleVisibility()
+            toggleAnimations()
+            isOpen = !isOpen
         }
 
         val nameId = resources.getIdentifier("com.example.monopolymanager:string/${viewModel.property?.name}", null, null);
@@ -131,7 +100,7 @@ class GeneralDetail : Fragment() {
         }
     }
 
-    fun doMortgage(): DialogInterface.OnClickListener? {
+    private fun doMortgage(): DialogInterface.OnClickListener? {
         val succesful = viewModel.mortgage()
         if (viewModel.property!!.isMortgaged) {
             binding.isMortgagedTxt2.text = resources.getString(R.string.isMortgaged)
@@ -150,4 +119,35 @@ class GeneralDetail : Fragment() {
         return null
     }
 
+    private fun toggleVisibility() {
+        if (!isOpen) {
+            binding.sellBtn.visibility = View.VISIBLE
+            binding.mortgageBtn.visibility = View.VISIBLE
+            binding.editBtn.visibility = View.VISIBLE
+            binding.mortgageBtn.isClickable = true
+            binding.editBtn.isClickable = true
+            binding.sellBtn.isClickable = true
+        } else {
+            binding.sellBtn.visibility = View.GONE
+            binding.mortgageBtn.visibility = View.GONE
+            binding.editBtn.visibility = View.GONE
+            binding.mortgageBtn.isClickable = false
+            binding.editBtn.isClickable = false
+            binding.sellBtn.isClickable = false
+        }
+    }
+
+    private fun toggleAnimations() {
+        if (!isOpen) {
+            binding.sellBtn.startAnimation(fromBottom)
+            binding.mortgageBtn.startAnimation(fromBottom)
+            binding.editBtn.startAnimation(fromBottom)
+            binding.menuBtn.startAnimation(rotateOpen)
+        } else {
+            binding.sellBtn.startAnimation(toBottom)
+            binding.mortgageBtn.startAnimation(toBottom)
+            binding.editBtn.startAnimation(toBottom)
+            binding.menuBtn.startAnimation(rotateClose)
+        }
+    }
 }
