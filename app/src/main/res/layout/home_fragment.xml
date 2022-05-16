@@ -7,6 +7,40 @@
     android:layout_height="match_parent"
     tools:context=".fragments.Home">
 
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cardView"
+        android:layout_width="75dp"
+        android:layout_height="75dp"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_gravity="center"
+        android:layout_marginStart="36dp"
+        android:layout_marginTop="75dp"
+        app:cardCornerRadius="250dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.475"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <androidx.cardview.widget.CardView
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            app:cardBackgroundColor="@color/white"
+            app:cardCornerRadius="250dp"
+            tools:layout_editor_absoluteX="124dp"
+            tools:layout_editor_absoluteY="81dp">
+
+            <ImageView
+                android:id="@+id/avatarImgHome"
+                android:layout_width="75dp"
+                android:layout_height="75dp"
+                android:contentDescription="avatar"
+                android:scaleType="centerCrop"
+                android:src="@drawable/dog" />
+
+        </androidx.cardview.widget.CardView>
+    </androidx.cardview.widget.CardView>
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/propertiesList"
         android:layout_width="match_parent"
@@ -17,24 +51,22 @@
         android:id="@+id/greeting"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentTop="true"
-        android:layout_marginStart="36dp"
-        android:layout_marginTop="80dp"
+        android:layout_alignTop="@+id/cardView"
+        android:layout_marginStart="15dp"
+        android:layout_marginTop="11dp"
+        android:layout_toEndOf="@+id/cardView"
         android:fontFamily="@font/futura"
         android:text="@string/greeting"
         android:textSize="20sp" />
 
     <TextView
         android:id="@+id/yourPropertiesTxt"
-        android:layout_width="160dp"
-        android:layout_height="31dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_below="@+id/greeting"
-        android:layout_alignBottom="@+id/view"
-        android:layout_alignParentStart="true"
-        android:layout_marginStart="37dp"
-        android:layout_marginTop="19dp"
-        android:layout_marginBottom="19dp"
+        android:layout_alignStart="@+id/greeting"
+        android:layout_marginStart="0dp"
+        android:layout_marginTop="5dp"
         android:fontFamily="@font/futura"
         android:text="@string/estate"
         android:textSize="20sp" />
@@ -48,12 +80,14 @@
 
     <TextView
         android:id="@+id/cashTxt"
-        android:layout_width="68dp"
-        android:layout_height="28dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_below="@+id/walletTxt"
-        android:layout_alignParentEnd="true"
-        android:layout_marginTop="19dp"
-        android:layout_marginEnd="52dp"
+        android:layout_alignStart="@+id/walletTxt"
+        android:layout_alignEnd="@+id/walletTxt"
+        android:layout_marginStart="19dp"
+        android:layout_marginTop="5dp"
+        android:layout_marginEnd="18dp"
         android:fontFamily="@font/futura"
         android:text="@string/initial_cash"
         android:textSize="20sp" />
@@ -62,11 +96,11 @@
         android:id="@+id/walletTxt"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
+        android:layout_alignTop="@+id/cardView"
         android:layout_alignParentEnd="true"
         android:layout_marginStart="126dp"
-        android:layout_marginTop="81dp"
-        android:layout_marginEnd="34dp"
+        android:layout_marginTop="11dp"
+        android:layout_marginEnd="30dp"
         android:fontFamily="@font/futura"
         android:text="@string/wallet"
         android:textSize="20sp" />

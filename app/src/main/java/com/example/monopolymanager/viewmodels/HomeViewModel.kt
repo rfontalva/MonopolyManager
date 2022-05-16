@@ -28,4 +28,8 @@ class HomeViewModel(context: Context) : ViewModel() {
     fun getProperties(): MutableList<Property>? {
         return propertyDao?.loadPropertiesByUserId(user?.idUser)
     }
+
+    fun getAvatar() : Int {
+        return user!!.getAvatar()
+    }
 }
