@@ -42,10 +42,10 @@ class GeneralDetailViewModel(context: Context?) : ViewModel() {
     }
 
     fun sell() {
-        var hasWholeGroup = propertyDao?.checkWholeGroup(property!!.group, idUser) == 0
+        val hasWholeGroup = propertyDao?.checkWholeGroup(property!!.group, idUser) == 0
         if (hasWholeGroup) {
-            var ppties = propertyDao?.loadAllInGroup(property!!.group)
-            var group = groupDao?.getGroupByNumber(property!!.group)
+            val ppties = propertyDao?.loadAllInGroup(property!!.group)
+            val group = groupDao?.getGroupByNumber(property!!.group)
             ppties?.forEach {
                 if (it.name != property!!.name) {
                     for (i in 0..it.houses) {
@@ -64,5 +64,16 @@ class GeneralDetailViewModel(context: Context?) : ViewModel() {
     fun update() {
         propertyDao?.updateProperty(property)
         userDao?.updatePerson(user)
+    }
+
+    fun getRentPrice() : Int {
+        val hasWholeGroup = propertyDao?.checkWholeGroup(property!!.group, idUser) == 0
+        if (hasWholeGroup && property!!.houses == 0)
+            return property?.getRentPrice()!! * 2
+        return property?.getRentPrice()!!
+    }
+
+    fun getHouses() : Int {
+        return property!!.houses
     }
 }

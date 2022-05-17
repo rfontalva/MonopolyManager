@@ -44,4 +44,7 @@ public interface propertyDao {
 
     @Query("SELECT count(*) from Property WHERE groupNumber = :groupNumber AND (idUser <> :idUser OR idUser is null)")
     fun checkWholeGroup(groupNumber: Int, idUser: Int?) : Int
+
+    @Query("SELECT count(*) from Property")
+    fun propertyCount() : Int
 }

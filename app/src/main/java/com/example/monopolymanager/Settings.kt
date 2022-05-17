@@ -57,7 +57,7 @@ class Settings : AppCompatActivity() {
                 Preference.OnPreferenceChangeListener { _, newValue ->
                     languagePref = newValue as String
                     val editor = sharedPref.edit()
-                    editor.putString("language", newValue as String)
+                    editor.putString("language", newValue)
                     editor.apply()
                     switchLocal(requireContext(), languagePref!!, requireActivity())
                     true

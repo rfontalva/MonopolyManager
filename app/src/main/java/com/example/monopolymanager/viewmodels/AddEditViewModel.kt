@@ -65,7 +65,10 @@ class AddViewModel(var context: Context) : AddEditViewModel(context) {
     }
 
     override fun getRentPrice() : Int? {
-        return property!!.getRentPrice()
+        val hasWholeGroup = propertyDao?.checkWholeGroup(property!!.group, idUser) == 0
+        if (hasWholeGroup && property!!.houses == 0)
+            return property?.getRentPrice()!! * 2
+        return property?.getRentPrice()!!
     }
 
     override fun getPrice() : Int {
@@ -127,7 +130,6 @@ class EditViewModel(var context: Context, override var property: Property?) : Ad
     private var hasWholeGroup: Boolean = false
     private var groupHousePrice : Int = 0
     private val originalHouseAmt = property!!.houses
-    var totalPrice = 0
     override val addHousesMsg = R.string.allPropertiesError
     override val removeHousesMsg = R.string.allPropertiesError
     var idUser: Int = -1
@@ -149,7 +151,10 @@ class EditViewModel(var context: Context, override var property: Property?) : Ad
     }
 
     override fun getPrice() : Int {
-        return groupHousePrice * (property!!.houses - originalHouseAmt)
+        var totalPrice = groupHousePrice * (property!!.houses - originalHouseAmt)
+        if (totalPrice < 0)
+            totalPrice /= 2
+        return totalPrice
     }
 
     override fun addHouse() : Boolean {
@@ -184,6 +189,7 @@ class EditViewModel(var context: Context, override var property: Property?) : Ad
     }
 
     override fun canBuy() : Pair<Int, Boolean> {
+        val totalPrice = getPrice()
         val (cash, canPay) = if (totalPrice < 0)
             user!!.charge(-1 * totalPrice)
         else

@@ -50,36 +50,45 @@ class AddEdit : Fragment() {
         setUpSpinners()
 
         if (!isAdd) {
-            "${getString(R.string.price)} ${viewModel.getPrice()}".also { binding.priceTxt.text = it}
-            "${getString(R.string.rent)} ${viewModel.getRentPrice()}".also { binding.rentTxt.text = it}
-            binding.housesAmtTxt.text = "${viewModel.getHousesAmt()}"
+            updateLabels()
+            if (viewModel.hasHotel()) {
+                binding.housesAmtTxt.text = getString(R.string.hotel)
+            }
+            else {
+                binding.housesAmtTxt.text = "${viewModel.getHousesAmt()}"
+            }
         }
     }
 
     private fun setUpButtons() {
         binding.addHouseBtn.setOnClickListener {
-            if (viewModel.addHouse()) {
-                "${getString(R.string.price)} ${viewModel.getPrice()}".also { binding.priceTxt.text = it}
-                "${getString(R.string.rent)} ${viewModel.getRentPrice()}".also { binding.rentTxt.text = it}
-                binding.housesAmtTxt.text = "${viewModel.getHousesAmt()}"
-            } else if (viewModel.hasHotel()){
-                binding.housesAmtTxt.text = getString(R.string.hotel)
-            }
-            else {
-                Snackbar.make(binding.root,getString(viewModel.addHousesMsg), Snackbar.LENGTH_SHORT).show()
+            when {
+                viewModel.addHouse() -> {
+                    updateLabels()
+                    binding.housesAmtTxt.text = "${viewModel.getHousesAmt()}"
+                }
+                viewModel.hasHotel() -> {
+                    binding.housesAmtTxt.text = getString(R.string.hotel)
+                    updateLabels()
+                }
+                else -> {
+                    Snackbar.make(binding.root,getString(viewModel.addHousesMsg), Snackbar.LENGTH_SHORT).show()
+                }
             }
         }
 
         binding.rmvHouseBtn.setOnClickListener {
-            if (viewModel.removeHouse()) {
-                "${getString(R.string.price)} ${viewModel.getPrice()}".also { binding.priceTxt.text = it}
-                "${getString(R.string.rent)} ${viewModel.getRentPrice()}".also { binding.rentTxt.text = it}
-                binding.housesAmtTxt.text = "${viewModel.getHousesAmt()}"
-            } else if (viewModel.getHousesAmt() == 0) {
-
-            }
-            else {
-                Snackbar.make(binding.root,getString(viewModel.removeHousesMsg), Snackbar.LENGTH_SHORT).show()
+            when {
+                viewModel.removeHouse() -> {
+                    updateLabels()
+                    binding.housesAmtTxt.text = "${viewModel.getHousesAmt()}"
+                }
+                viewModel.getHousesAmt() == 0 -> {
+                    //do nothing
+                }
+                else -> {
+                    Snackbar.make(binding.root,getString(viewModel.removeHousesMsg), Snackbar.LENGTH_SHORT).show()
+                }
             }
         }
 
@@ -133,8 +142,7 @@ class AddEdit : Fragment() {
                             id: Long
                         ) {
                             viewModel.setProperty(position)
-                            "${getString(R.string.price)} ${viewModel.getPrice()}".also { binding.priceTxt.text = it}
-                            "${getString(R.string.rent)} ${viewModel.getRentPrice()}".also { binding.rentTxt.text = it}
+                            updateLabels()
                             if (viewModel.hasHotel()) {
                                 binding.housesAmtTxt.text = getString(R.string.hotel)
                             }
@@ -154,5 +162,10 @@ class AddEdit : Fragment() {
             binding.nameSpinner.isEnabled = false
             binding.colorSpinner.isEnabled = false
         }
+    }
+
+    private fun updateLabels() {
+        "${getString(R.string.price)} ${viewModel.getPrice()}".also { binding.priceTxt.text = it}
+        "${getString(R.string.rent)} ${viewModel.getRentPrice()}".also { binding.rentTxt.text = it}
     }
 }

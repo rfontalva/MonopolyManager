@@ -53,6 +53,7 @@
     <string name="sellDetails">Si vendes esta propiedad y tienes casas en otras propiedades del mismo grupo, todas ellas se venderan y obtendrás la mitad de lo que las pagaste</string>
     <string name="unmortgageFirst">Esta propiedad esta hipotecada. Pague la hipoteca antes de venderla.</string>
     <string name="titleDeed">Titulo de propiedad</string>
+    <string name="title">Titulo</string>
     <string name="housingPrice1">Las casas cuestan $</string>
     <string name="housingPrice2">c/u.\nLos hoteles $</string>
     <string name="housingPrice3">, más 4 casas.</string>

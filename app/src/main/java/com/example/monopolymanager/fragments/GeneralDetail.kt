@@ -54,8 +54,12 @@ class GeneralDetail : Fragment() {
         val nameId = resources.getIdentifier("com.example.monopolymanager:string/${viewModel.property?.name}", null, null);
         binding.propertyName.text = resources.getString(nameId)
         "${getString(R.string.price)} ${viewModel.property?.price}".also { binding.price.text = it }
-        "${getString(R.string.rent)} ${viewModel.property?.getRentPrice()}".also { binding.currentRent.text = it }
-        "${getString(R.string.houses)} ${viewModel.property?.houses}".also { binding.housesAmt.text = it }
+        "${getString(R.string.rent)} ${viewModel.getRentPrice()}".also { binding.currentRent.text = it }
+        if (viewModel.property!!.hasHotel)
+            "${getString(R.string.houses)} ${getString(R.string.hotel)}".also { binding.housesAmt.text = it }
+        else
+            "${getString(R.string.houses)} ${viewModel.getHouses()}".also { binding.housesAmt.text = it }
+
 
         "${getString(R.string.mortgagePrice)} ${viewModel.property?.mortgage}".also { binding.mortgageTxt.text = it }
         if (viewModel.property!!.isMortgaged) {

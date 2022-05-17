@@ -51,7 +51,7 @@ class Detail : Fragment() {
         ) { tab, position ->
             when (position) {
                 0 -> tab.text = getString(R.string.general)
-                1 -> tab.text = getString(R.string.titleDeed)
+                1 -> tab.text = getString(R.string.title)
                 else -> tab.text = "undefined"
             }
         }.attach()

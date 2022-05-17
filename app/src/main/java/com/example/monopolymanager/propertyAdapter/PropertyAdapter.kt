@@ -1,6 +1,7 @@
 package com.example.monopolymanager.propertyAdapter
 
 import android.content.Context
+import android.content.SharedPreferences
 import android.graphics.Color
 import android.view.LayoutInflater
 import android.view.View
@@ -13,10 +14,9 @@ import com.example.monopolymanager.R
 import com.example.monopolymanager.database.appDatabase
 import com.example.monopolymanager.database.groupDao
 import com.example.monopolymanager.database.propertyDao
-import com.example.monopolymanager.database.userDao
 import com.example.monopolymanager.entities.Property
-import com.example.monopolymanager.entities.User
 
+private var PREF_NAME = "MONOPOLY"
 
 class PropertyAdapter (private var properties : MutableList<Property>?,
                var onClick : (Int) -> Unit,
@@ -25,10 +25,12 @@ class PropertyAdapter (private var properties : MutableList<Property>?,
         private var view: View = v
         private var db: appDatabase? = null
         private var groupDao: groupDao? = null
+        private var propertyDao: propertyDao? = null
 
         init {
             db = appDatabase.getAppDataBase(v.context)
             groupDao = db?.groupDao()
+            propertyDao = db?.propertyDao()
         }
 
         fun setProperty(prop: Property?) {
@@ -37,7 +39,13 @@ class PropertyAdapter (private var properties : MutableList<Property>?,
             propertyNameTxt.text = view.resources.getString(nameId)
 
             val propertyPriceTxt : TextView = view.findViewById(R.id.propertyPriceTxt)
-            "$${prop?.getRentPrice()}".also { propertyPriceTxt.text = it }
+            val sharedPref: SharedPreferences = view.context.getSharedPreferences(PREF_NAME, Context.MODE_PRIVATE)
+            val idUser = sharedPref.getInt("idUser", -1)
+            val hasWholeGroup = propertyDao?.checkWholeGroup(prop!!.group, idUser) == 0
+            if (hasWholeGroup && prop!!.houses == 0)
+                "$${prop?.getRentPrice()!! * 2}".also { propertyPriceTxt.text = it }
+            else
+                "$${prop?.getRentPrice()}".also { propertyPriceTxt.text = it }
 
             val isMortgagedTxt : TextView = view.findViewById(R.id.isMortgagedTxt)
             if (prop!!.isMortgaged) {

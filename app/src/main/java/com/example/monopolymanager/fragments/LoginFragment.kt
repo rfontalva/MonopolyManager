@@ -30,7 +30,7 @@ class LoginFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         binding = LoginFragmentBinding.inflate(layoutInflater)
-        viewModel = LoginViewModel(context)
+        viewModel = LoginViewModel(requireContext())
 
         return binding.root
     }
@@ -47,13 +47,7 @@ class LoginFragment : Fragment() {
             val action = LoginFragmentDirections.actionLoginToMainActivity()
             navController.navigate(action)
         }
-        val isInitialized = sharedPref.getBoolean("isInitialized", false)
-        if (!isInitialized) {
-            viewModel.initializeProperties()
-            val editor = sharedPref.edit()
-            editor.putBoolean("isInitialized", true)
-            editor.apply()
-        }
+        viewModel.initializeProperties()
 
         binding.btnSubmit.setOnClickListener {
             val user = viewModel.validate(binding.username.text.toString(), binding.password.text.toString())

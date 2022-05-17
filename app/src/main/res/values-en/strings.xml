@@ -55,6 +55,7 @@
     <string name="sellDetails">If you sell this property and you have others of the same group with houses, these will be sold and you will get half of what you paid for them.</string>
     <string name="unmortgageFirst">This property is mortgaged. Pay it\'s mortgage first before selling it.</string>
     <string name="titleDeed">Title deed</string>
+    <string name="title">Title</string>
     <string name="housingPrice1">Each house costs $</string>
     <string name="housingPrice2">\nHotels cost $</string>
     <string name="housingPrice3">, plus 4 houses.</string>
