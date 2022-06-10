@@ -34,7 +34,7 @@ public interface propertyDao {
     fun loadPropertyById(id: Int): Property?
 
     @Query("SELECT * from Property WHERE idUser = :idUser")
-    fun loadPropertiesByUserId(idUser: Int?): MutableList<Property>
+    fun loadPropertiesByUserId(idUser: String?): MutableList<Property>
 
     @Query("SELECT * from Property WHERE name = :name")
     fun loadPropertyByName(name: String?): Property?

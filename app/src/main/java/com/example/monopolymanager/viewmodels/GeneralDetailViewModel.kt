@@ -3,7 +3,6 @@ package com.example.monopolymanager.viewmodels
 import android.content.Context
 import android.content.SharedPreferences
 import androidx.lifecycle.ViewModel
-import com.example.monopolymanager.database.appDatabase
 import com.example.monopolymanager.database.groupDao
 import com.example.monopolymanager.database.propertyDao
 import com.example.monopolymanager.database.userDao
@@ -13,7 +12,7 @@ import com.example.monopolymanager.entities.User
 private var PREF_NAME = "MONOPOLY"
 
 class GeneralDetailViewModel(context: Context?) : ViewModel() {
-    private var db: appDatabase? = null
+    private var db: Any? = null
     private var userDao: userDao? = null
     private var groupDao: groupDao? = null
     private var propertyDao: propertyDao? = null
@@ -25,10 +24,11 @@ class GeneralDetailViewModel(context: Context?) : ViewModel() {
         val sharedPref: SharedPreferences = context!!.getSharedPreferences(PREF_NAME, Context.MODE_PRIVATE)
         val idProperty = sharedPref.getInt("idProperty", -1)
         idUser = sharedPref.getInt("idUser", -1)
-        db = context.let { appDatabase.getAppDataBase(it) }
-        userDao = db?.userDao()
-        propertyDao = db?.propertyDao()
-        groupDao = db?.groupDao()
+
+        db = context.let { null }
+        userDao = null
+        propertyDao = null
+        groupDao = null
         user = userDao?.loadPersonById(idUser)
         property = propertyDao?.loadPropertyById(idProperty)
     }

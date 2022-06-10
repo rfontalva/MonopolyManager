@@ -4,7 +4,6 @@ import android.content.Context
 import android.content.SharedPreferences
 import androidx.lifecycle.ViewModel
 import com.example.monopolymanager.R
-import com.example.monopolymanager.database.appDatabase
 import com.example.monopolymanager.database.groupDao
 import com.example.monopolymanager.database.propertyDao
 import com.example.monopolymanager.database.userDao
@@ -14,7 +13,7 @@ import com.example.monopolymanager.entities.Property
 private var PREF_NAME = "MONOPOLY"
 
 abstract class AddEditViewModel(context: Context) : ViewModel() {
-    var db: appDatabase? = null
+    var db: Any? = null
     var userDao: userDao? = null
     var propertyDao: propertyDao? = null
     var groupDao: groupDao? = null
@@ -24,10 +23,10 @@ abstract class AddEditViewModel(context: Context) : ViewModel() {
     abstract val removeHousesMsg : Int
 
     init {
-        db = context.let { appDatabase.getAppDataBase(it) }
-        userDao = db?.userDao()
-        propertyDao = db?.propertyDao()
-        groupDao = db?.groupDao()
+        db = context.let { null }
+        userDao = null
+        propertyDao = null
+        groupDao = null
     }
 
 

@@ -23,42 +23,21 @@ fun stringToArray(string: String) : IntArray {
     return r.toIntArray()
 }
 
-@Entity(tableName = "Property")
+
 class Property(
-    @ColumnInfo(name = "name")
     var name: String? = null,
-
-    @ColumnInfo(name = "price")
     var price: Int,
-
-    @ColumnInfo(name = "groupNumber")
     var group: Int,
-
-    @ColumnInfo(name = "rent")
-    var rent: String?,
-
-    @ColumnInfo(name = "rentHotel")
+    var rent: String? = null,
     var rentHotel: Int,
-
-    @ColumnInfo(name = "mortgage")
     var mortgage: Int
 ) : Parcelable {
-
-    @PrimaryKey(autoGenerate = true)
-    @ColumnInfo(name = "idProperty")
-    var idProperty : Int = 0
-
-    @ColumnInfo(name = "houses")
     var houses: Int = 0
-
-    @ColumnInfo(name = "idUser")
     var idOwner : Int? = null
-
-    @ColumnInfo(name = "hasHotel")
     var hasHotel: Boolean = false
-
-    @ColumnInfo(name = "isMortgaged")
     var isMortgaged: Boolean = false
+
+    constructor() : this("",0,0,"",0,0)
 
     constructor(parcel: Parcel) : this (
         parcel.readString(),
@@ -129,7 +108,7 @@ class Property(
     }
 
     fun mortgage(user: User) : Boolean {
-        var isSuccessful: Boolean = if (isMortgaged) {
+        val isSuccessful: Boolean = if (isMortgaged) {
             user.pay(mortgage).second
         } else {
             user.charge(mortgage).second

@@ -1,4 +1,4 @@
-package com.example.monopolymanager.propertyAdapter
+package com.example.monopolymanager.adapters
 
 import android.content.Context
 import android.content.SharedPreferences
@@ -11,7 +11,6 @@ import android.widget.TextView
 import androidx.cardview.widget.CardView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.monopolymanager.R
-import com.example.monopolymanager.database.appDatabase
 import com.example.monopolymanager.database.groupDao
 import com.example.monopolymanager.database.propertyDao
 import com.example.monopolymanager.entities.Property
@@ -23,14 +22,14 @@ class PropertyAdapter (private var properties : MutableList<Property>?,
 ) : RecyclerView.Adapter<PropertyAdapter.PropertyHolder>()  {
     class PropertyHolder(v: View) : RecyclerView.ViewHolder(v) {
         private var view: View = v
-        private var db: appDatabase? = null
+        private var db: Any? = null
         private var groupDao: groupDao? = null
         private var propertyDao: propertyDao? = null
 
         init {
-            db = appDatabase.getAppDataBase(v.context)
-            groupDao = db?.groupDao()
-            propertyDao = db?.propertyDao()
+            db = null
+            groupDao =null
+            propertyDao = null
         }
 
         fun setProperty(prop: Property?) {

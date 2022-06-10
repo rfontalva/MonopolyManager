@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "942562826405",
+    "project_id": "monopolymanager",
+    "storage_bucket": "monopolymanager.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:942562826405:android:ac4e03f91ebca3dc11554c",
+        "android_client_info": {
+          "package_name": "com.example.monopolymanager"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "942562826405-j5lm4ffkv7h7la4ikgmo7ii8839811aq.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.monopolymanager",
+            "certificate_hash": "82c6d07c4a79d607fe93143a6bc8e601312180cf"
+          }
+        },
+        {
+          "client_id": "942562826405-dk66tv3sipd344sikvu671q6abi5jpsu.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAAPD4vS-1Vy5ey-01cMwqokHoMbiw3oqM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "942562826405-dk66tv3sipd344sikvu671q6abi5jpsu.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

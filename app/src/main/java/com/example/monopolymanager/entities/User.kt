@@ -9,38 +9,24 @@ import com.example.monopolymanager.R
 
 //import kotlinx.android.parcel.Parcelize
 
-@Entity(tableName = "User")
 class User(
-    @ColumnInfo(name = "username")
     private var username: String?,
-
-    @ColumnInfo(name = "password")
-    private var password: String?,
-
-    @ColumnInfo(name = "mail")
-    private var mail: String?
+    private var email: String?,
 ) : Parcelable {
-
-    @PrimaryKey(autoGenerate = true)
-    @ColumnInfo(name = "idUser")
-    var idUser : Int = 0
-
-    @ColumnInfo(name = "cash")
+    var idUser : String = ""
     private var cash: Int = 1500
-
-    @ColumnInfo(name = "avatar")
     private var avatar: Int = R.drawable.dog
 
+    constructor() : this("","")
+
     constructor(parcel: Parcel) : this (
-        parcel.readString(),
         parcel.readString(),
         parcel.readString()) {
     }
 
     override fun writeToParcel(parcel: Parcel, flags: Int) {
         parcel.writeString(username)
-        parcel.writeString(password)
-        parcel.writeString(mail)
+        parcel.writeString(email)
     }
 
     override fun describeContents(): Int {
@@ -69,16 +55,8 @@ class User(
         return username
     }
 
-    fun getPassword() : String? {
-        return password
-    }
-
-    fun getMail() : String? {
-        return mail
-    }
-
-    fun setMail(newMail: String) {
-        mail = newMail
+    fun getEmail() : String? {
+        return email
     }
 
     fun getAvatar(): Int {

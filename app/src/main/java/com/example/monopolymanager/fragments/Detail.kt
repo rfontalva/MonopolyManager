@@ -8,7 +8,6 @@ import android.view.ViewGroup
 import androidx.fragment.app.FragmentActivity
 import androidx.viewpager2.adapter.FragmentStateAdapter
 import com.example.monopolymanager.R
-import com.example.monopolymanager.database.appDatabase
 import com.example.monopolymanager.database.groupDao
 import com.example.monopolymanager.databinding.DetailFragmentBinding
 import com.example.monopolymanager.viewmodels.DetailViewModel
@@ -20,7 +19,7 @@ private var PREF_NAME = "MONOPOLY"
 class Detail : Fragment() {
 
     private lateinit var binding : DetailFragmentBinding
-    private var db: appDatabase? = null
+    private var db: Any? = null
     private var groupDao: groupDao? = null
     private lateinit var viewModel : DetailViewModel
 

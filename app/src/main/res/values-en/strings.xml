@@ -63,6 +63,8 @@
     <string name="emailUpdated">Email updated.</string>
     <string name="emailNotAvailable">Email not available. Pick another one.</string>
     <string name="menu">Menu.</string>
+    <string name="gameName">Game\'s name</string>
+    <string name="players">Players...</string>
 
     <!--colors-->
     <string name="lime">Lime</string>
@@ -101,11 +103,15 @@
     <string name="selectFirst">Select a property first</string>
     <string name="notEnoughCash">You don\'t have enough cash</string>
 
-    <string name="messages_header">Messages</string>
+    <string name="loading">Loading</string>
     <string name="sync_header">Sync</string>
     <string name="session">Session</string>
     <string name="stayLoggedIn">Stay logged in</string>
     <string name="logOut">Log Out</string>
+    <string name="necessaryFields">All fields are necessary</string>
+    <string name="passwordsDontMatch">Passwords don\'t match</string>
+    <string name="passwordLength">Password length must be at least 6 characters</string>
+    <string name="userOrEmailNotAvailable">User or email not available</string>
 
     <!-- Messages Preferences -->
     <string name="signature_title">Your signature</string>

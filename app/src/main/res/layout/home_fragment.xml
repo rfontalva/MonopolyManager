@@ -117,4 +117,15 @@
         android:contentDescription="@string/addEdit"
         android:src="@android:drawable/ic_input_add" />
 
+    <TextView
+        android:id="@+id/loadingHome"
+        android:layout_width="97dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginStart="151dp"
+        android:layout_marginTop="350dp"
+        android:text="@string/loading"
+        android:textSize="20sp" />
+
 </RelativeLayout>

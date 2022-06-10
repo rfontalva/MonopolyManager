@@ -61,6 +61,9 @@
     <string name="emailUpdated">Email actualizado.</string>
     <string name="emailNotAvailable">Email no disponible. Elija otro.</string>
     <string name="menu">Menu.</string>
+    <string name="gameName">Nombre del juego</string>
+    <string name="players">Jugadores...</string>
+
 
     <!--properties  names-->
     <string name="mediterranean">Avenida Mediterráneo</string>
@@ -102,11 +105,15 @@
     <string name="notEnoughCash">No tienes suficiente dinero</string>
 
     <!-- Preference Titles -->
-    <string name="messages_header">Messages</string>
+    <string name="loading">Cargando</string>
     <string name="sync_header">Sync</string>
     <string name="session">Sesión</string>
     <string name="stayLoggedIn">Mantener iniciada la sesión</string>
     <string name="logOut">Cerrar sesión</string>
+    <string name="necessaryFields">Todos los campos son necesarios</string>
+    <string name="passwordsDontMatch">Las contraseñas no coinciden</string>
+    <string name="passwordLength">La contraseña debe tener al menos 6 caracteres</string>
+    <string name="userOrEmailNotAvailable">Usuario o email no disponibles</string>
 
 
     <!-- Messages Preferences -->
