@@ -2,6 +2,7 @@ package com.example.monopolymanager.fragments
 
 import android.opengl.Visibility
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -11,8 +12,12 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.monopolymanager.R
 import com.example.monopolymanager.databinding.HomeFragmentBinding
 import com.example.monopolymanager.adapters.PropertyAdapter
+import com.example.monopolymanager.entities.Game
 import com.example.monopolymanager.utils.convertPixelsToDp
 import com.example.monopolymanager.viewmodels.HomeViewModel
+import com.google.firebase.firestore.ktx.firestore
+import com.google.firebase.firestore.ktx.toObject
+import com.google.firebase.ktx.Firebase
 
 
 class Home : Fragment() {
@@ -34,6 +39,8 @@ class Home : Fragment() {
 
     override fun onStart() {
         super.onStart()
+        val db = Firebase.firestore
+
 
         viewModel.isLoading.observe(viewLifecycleOwner) { isLoading ->
             if (!isLoading) {
@@ -43,7 +50,7 @@ class Home : Fragment() {
                 if (viewModel.user != null) {
                     binding.propertiesList.setHasFixedSize(true)
                     binding.propertiesList.layoutManager = LinearLayoutManager(context)
-                    binding.propertiesList.adapter = PropertyAdapter(properties = viewModel.getProperties()){ index->
+                    binding.propertiesList.adapter = PropertyAdapter(viewLifecycleOwner, viewModel.getProperties()){ index->
                         onItemClick(index)
                     }
                     var username = viewModel.user!!.getUsername()!!

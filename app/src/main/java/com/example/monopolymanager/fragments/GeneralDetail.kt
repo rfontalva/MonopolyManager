@@ -12,21 +12,26 @@ import androidx.navigation.findNavController
 import com.example.monopolymanager.viewmodels.GeneralDetailViewModel
 import com.example.monopolymanager.R
 import com.example.monopolymanager.databinding.GeneralDetailFragmentBinding
+import com.example.monopolymanager.entities.Property
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.android.material.snackbar.Snackbar
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.Job
+import kotlinx.coroutines.launch
 
 
-class GeneralDetail : Fragment() {
+class GeneralDetail(val property: Property?) : Fragment() {
 
     companion object {
-        fun newInstance() = GeneralDetail()
+        fun newInstance() = GeneralDetail(null)
     }
 
     lateinit var binding: GeneralDetailFragmentBinding
 
     private lateinit var viewModel: GeneralDetailViewModel
 
-    var isOpen = false
+    private var isOpen = false
 
     private val rotateOpen: Animation by lazy { AnimationUtils.loadAnimation(requireContext(), R.anim.rotate_open_anim)}
     private val rotateClose: Animation by lazy { AnimationUtils.loadAnimation(requireContext(), R.anim.rotate_close_anim)}
@@ -38,12 +43,21 @@ class GeneralDetail : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         binding = GeneralDetailFragmentBinding.inflate(layoutInflater)
-        viewModel = GeneralDetailViewModel(context)
+        viewModel = GeneralDetailViewModel(property)
         return binding.root
     }
 
     override fun onStart() {
         super.onStart()
+        val parentJob = Job()
+        val scope = CoroutineScope(Dispatchers.Default + parentJob)
+
+        viewModel.sellSuccess.observe(viewLifecycleOwner) { result ->
+            if (result == true) {
+                binding.root.findNavController().navigate(DetailDirections.actionDetailToHome2())
+            }
+        }
+
 
         binding.menuBtn.setOnClickListener {
             toggleVisibility()
@@ -91,8 +105,9 @@ class GeneralDetail : Fragment() {
                     .setTitle(getString(R.string.sell))
                     .setMessage(getString(R.string.sellDetails))
                     .setPositiveButton(getString(R.string.ok)) { _, _ ->
-                        viewModel.sell()
-                        binding.root.findNavController().navigate(DetailDirections.actionDetailToHome2())
+                        scope.launch {
+                            viewModel.sell()
+                        }
                     }
                     .setNegativeButton(getString(R.string.cancel), /* listener = */ null)
                     .show();
@@ -118,7 +133,7 @@ class GeneralDetail : Fragment() {
                 Snackbar.LENGTH_SHORT
             ).show()
         } else {
-            viewModel.update()
+//            viewModel.update()
         }
         return null
     }

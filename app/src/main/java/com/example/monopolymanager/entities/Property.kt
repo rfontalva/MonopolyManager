@@ -33,7 +33,7 @@ class Property(
     var mortgage: Int
 ) : Parcelable {
     var houses: Int = 0
-    var idOwner : Int? = null
+    var idOwner : String? = null
     var hasHotel: Boolean = false
     var isMortgaged: Boolean = false
 
@@ -57,7 +57,7 @@ class Property(
         parcel.writeInt(rentHotel)
         parcel.writeInt(mortgage)
         parcel.writeInt(houses)
-        parcel.writeInt(idOwner!!)
+        parcel.writeString(idOwner!!)
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
             parcel.writeBoolean(hasHotel)
         }
@@ -75,6 +75,29 @@ class Property(
         override fun newArray(size: Int): Array<Property?> {
             return arrayOfNulls(size)
         }
+    }
+
+    fun setDetailsReduced(details: PropertyGameDetails) {
+        isMortgaged = details.isMortgaged
+        hasHotel = details.hasHotel
+        houses = details.houses!!
+        idOwner = details.idOwner!!
+    }
+
+    fun setDetails(details: Property) {
+        isMortgaged = details.isMortgaged
+        hasHotel = details.hasHotel
+        houses = details.houses!!
+        idOwner = details.idOwner!!
+    }
+
+    fun getDetails() : PropertyGameDetails{
+        val details = PropertyGameDetails()
+        details.isMortgaged = isMortgaged
+        details.hasHotel = hasHotel
+        details.houses = houses
+        details.idOwner = idOwner
+        return details
     }
 
     fun getRentPrice() : Int? {

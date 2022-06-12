@@ -2,35 +2,48 @@ package com.example.monopolymanager.viewmodels
 
 import android.content.Context
 import android.content.SharedPreferences
+import android.util.Log
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import com.example.monopolymanager.database.groupDao
 import com.example.monopolymanager.database.propertyDao
 import com.example.monopolymanager.database.userDao
-import com.example.monopolymanager.entities.Property
-import com.example.monopolymanager.entities.User
+import com.example.monopolymanager.entities.*
+import com.google.firebase.firestore.ktx.firestore
+import com.google.firebase.firestore.ktx.toObject
+import com.google.firebase.ktx.Firebase
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.tasks.await
 
-private var PREF_NAME = "MONOPOLY"
 
-class GeneralDetailViewModel(context: Context?) : ViewModel() {
-    private var db: Any? = null
-    private var userDao: userDao? = null
-    private var groupDao: groupDao? = null
-    private var propertyDao: propertyDao? = null
+class GeneralDetailViewModel(var property: Property?) : ViewModel() {
+    private var db = Firebase.firestore
     var user: User? = null
-    var property: Property? = null
-    private var idUser : Int = 0
+    var pricePerHouse: Int? = null
+    var gameName : String = "mX8VgDtI3ZwMF4sye9as"
+    var isInitialized: MutableLiveData<Boolean> = MutableLiveData(false)
+    var sellSuccess: MutableLiveData<Boolean?> = MutableLiveData(false)
 
     init {
-        val sharedPref: SharedPreferences = context!!.getSharedPreferences(PREF_NAME, Context.MODE_PRIVATE)
-        val idProperty = sharedPref.getInt("idProperty", -1)
-        idUser = sharedPref.getInt("idUser", -1)
+        viewModelScope.launch {
+            initializeGroup()
+        }
+    }
 
-        db = context.let { null }
-        userDao = null
-        propertyDao = null
-        groupDao = null
-        user = userDao?.loadPersonById(idUser)
-        property = propertyDao?.loadPropertyById(idProperty)
+    private suspend fun initializeGroup() {
+        val docRef = db.collection("Group").document(property!!.group.toString())
+        try {
+            val dataSnapshot = docRef.get().await()
+            if (dataSnapshot != null) {
+                pricePerHouse = dataSnapshot.get("pricePerHouse") as Int
+                isInitialized.postValue(true)
+            } else {
+                Log.d("Test", "No such document")
+            }
+        } catch (e: Exception) {
+            Log.d("Test", e.localizedMessage)
+        }
     }
 
     fun mortgage(): Boolean? {
@@ -41,33 +54,54 @@ class GeneralDetailViewModel(context: Context?) : ViewModel() {
         return property!!.isMortgaged
     }
 
-    fun sell() {
-        val hasWholeGroup = propertyDao?.checkWholeGroup(property!!.group, idUser) == 0
+    suspend fun sell() {
+//        SELECT count(*) from Property WHERE groupNumber = :groupNumber AND (idUser <> :idUser OR idUser is null)
+        var hasWholeGroup = false
+        var game: Game? = null
+
+        val docRef = db.collection("Game").document(gameName)
+        try {
+            val dataSnapshot = docRef.get().await()
+            if (dataSnapshot != null) {
+                game = dataSnapshot.toObject<Game>()
+                val pptyCount = if (property?.group == 1 || property?.group == 8) 2 else 3
+                hasWholeGroup = game?.properties?.count { it.group == property!!.group && it.idOwner == property!!.idOwner } == pptyCount
+            } else {
+                Log.d("Test", "No such document")
+            }
+        } catch (e: Exception) {
+            Log.d("Test", "ERROR", e)
+            sellSuccess.postValue(true)
+        }
+
         if (hasWholeGroup) {
-            val ppties = propertyDao?.loadAllInGroup(property!!.group)
-            val group = groupDao?.getGroupByNumber(property!!.group)
-            ppties?.forEach {
+
+            game?.properties?.forEach {
                 if (it.name != property!!.name) {
-                    for (i in 0..it.houses) {
-                        it.removeHouse()
-                        user!!.charge(group?.pricePerHouse!! / 2)
-                    }
-                    propertyDao?.updateProperty(it)
+                    user!!.charge(it.houses * pricePerHouse!! / 2)
+                    it.houses = 0
+                    it.hasHotel = false
+                }
+                else {
+                    game.properties.remove(it)
                 }
             }
         }
         property!!.idOwner = null
         user!!.charge(property!!.price)
-        update()
+        game?.players?.remove(game.players.filter{it.player == user!!.getUsername()}[0])
+        game?.players?.add(UserGameDetails(user?.getUsername(), user?.getCash()))
+        update(game!!)
+        sellSuccess.postValue(true)
     }
 
-    fun update() {
-        propertyDao?.updateProperty(property)
-        userDao?.updatePerson(user)
+    fun update(details: Game) {
+        db.collection("Game").document(gameName).set(details)
     }
+
 
     fun getRentPrice() : Int {
-        val hasWholeGroup = propertyDao?.checkWholeGroup(property!!.group, idUser) == 0
+        val hasWholeGroup = false
         if (hasWholeGroup && property!!.houses == 0)
             return property?.getRentPrice()!! * 2
         return property?.getRentPrice()!!

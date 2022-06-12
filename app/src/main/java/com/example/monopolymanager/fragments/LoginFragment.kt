@@ -1,29 +1,19 @@
 package com.example.monopolymanager.fragments
 
-import android.content.ContentValues.TAG
 import android.content.Context
 import android.content.SharedPreferences
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.Observer
 import androidx.navigation.findNavController
 import com.example.monopolymanager.Login
 import com.example.monopolymanager.R
 import com.example.monopolymanager.databinding.LoginFragmentBinding
-import com.example.monopolymanager.entities.Group
-import com.example.monopolymanager.entities.Property
-import com.example.monopolymanager.entities.PropertyBasic
 import com.example.monopolymanager.entities.User
 import com.example.monopolymanager.viewmodels.LoginViewModel
 import com.google.android.material.snackbar.Snackbar
-import com.google.firebase.firestore.FirebaseFirestore
-import com.google.firebase.firestore.ktx.firestore
-import com.google.firebase.firestore.ktx.toObject
-import com.google.firebase.ktx.Firebase
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
@@ -77,6 +67,8 @@ class LoginFragment : Fragment() {
                 foundEmail = ""
                 Snackbar.make(binding.root, getString(R.string.wrongUser), Snackbar.LENGTH_SHORT)
                     .show()
+                binding.username.isEnabled = true
+                binding.password.isEnabled = true
             }
         }
 

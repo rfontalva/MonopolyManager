@@ -26,7 +26,6 @@ class Register : Fragment() {
     private lateinit var binding: RegisterFragmentBinding
     private lateinit var viewModel: RegisterViewModel
     private var isLoading = false
-    private var firstObserved = true
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,

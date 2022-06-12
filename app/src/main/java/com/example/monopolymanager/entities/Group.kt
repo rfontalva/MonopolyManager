@@ -9,4 +9,6 @@ data class Group (
     var color: String?,
     var colorName: String?,
     var pricePerHouse: Int?
-)
+) {
+    constructor() : this (0, "", "", 0)
+}

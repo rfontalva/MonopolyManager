@@ -33,8 +33,7 @@ class LoginViewModel(private var context: Context) : ViewModel() {
     }
 
     fun getEmail(username: String) {
-
-        var docRef = db.collection("User").document(username)
+        val docRef = db.collection("User").document(username)
         docRef.get()
             .addOnSuccessListener { dataSnapshot ->
                 if (dataSnapshot != null) {

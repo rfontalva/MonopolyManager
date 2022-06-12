@@ -49,14 +49,13 @@ class AddViewModel(var context: Context) : AddEditViewModel(context) {
     override var property: Property? = null
     override val addHousesMsg = R.string.housesError
     override val removeHousesMsg = R.string.housesError
-    var idUser: Int = -1
+    var idUser: String? = ""
     private var propertyArray: MutableList<String?> = mutableListOf()
     var colors: MutableList<String?> = mutableListOf()
 
     init {
         val sharedPref: SharedPreferences = context.getSharedPreferences(PREF_NAME, Context.MODE_PRIVATE)
-        idUser = sharedPref.getInt("idUser", -1)
-        user = userDao?.loadPersonById(idUser)
+        idUser = sharedPref.getString("idUser", "")
     }
 
     override fun setProperty(position: Int) {
@@ -64,7 +63,8 @@ class AddViewModel(var context: Context) : AddEditViewModel(context) {
     }
 
     override fun getRentPrice() : Int? {
-        val hasWholeGroup = propertyDao?.checkWholeGroup(property!!.group, idUser) == 0
+//        val hasWholeGroup = propertyDao?.checkWholeGroup(property!!.group, idUser) == 0
+        val hasWholeGroup = false
         if (hasWholeGroup && property!!.houses == 0)
             return property?.getRentPrice()!! * 2
         return property?.getRentPrice()!!
@@ -131,13 +131,12 @@ class EditViewModel(var context: Context, override var property: Property?) : Ad
     private val originalHouseAmt = property!!.houses
     override val addHousesMsg = R.string.allPropertiesError
     override val removeHousesMsg = R.string.allPropertiesError
-    var idUser: Int = -1
+    var idUser: String? = ""
 
     init {
         val sharedPref: SharedPreferences = context.getSharedPreferences(PREF_NAME, Context.MODE_PRIVATE)
-        idUser = sharedPref.getInt("idUser", -1)
-        user = userDao?.loadPersonById(idUser)
-        hasWholeGroup = propertyDao?.checkWholeGroup(property!!.group, idUser) == 0
+        idUser = sharedPref.getString("idUser", "")
+        hasWholeGroup = false
         groupHousePrice = groupDao?.getPricePerHouseByNumber(property!!.group)!!
     }
 

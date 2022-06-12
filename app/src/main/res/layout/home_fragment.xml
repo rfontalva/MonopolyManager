@@ -43,8 +43,10 @@
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/propertiesList"
-        android:layout_width="match_parent"
-        android:layout_height="453dp"
+        android:layout_width="369dp"
+        android:layout_height="463dp"
+        android:layout_alignParentStart="true"
+        android:layout_marginStart="20dp"
         android:layout_marginTop="173dp" />
 
     <TextView
@@ -119,12 +121,12 @@
 
     <TextView
         android:id="@+id/loadingHome"
-        android:layout_width="97dp"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
-        android:layout_marginStart="151dp"
-        android:layout_marginTop="350dp"
+        android:layout_marginStart="162dp"
+        android:layout_marginTop="353dp"
         android:text="@string/loading"
         android:textSize="20sp" />
 

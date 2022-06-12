@@ -10,7 +10,7 @@
     app:cardElevation="8dp">
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:layout_width="393dp"
+        android:layout_width="369dp"
         android:layout_height="match_parent"
         android:focusableInTouchMode="true">
 
@@ -32,7 +32,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:fontFamily="@font/copperplate_bold"
+            android:gravity="center"
             android:text="@string/property"
+            android:textAlignment="center"
             android:textSize="16sp"
             app:layout_constraintBottom_toTopOf="@+id/propertyPriceTxt"
             app:layout_constraintEnd_toEndOf="parent"
