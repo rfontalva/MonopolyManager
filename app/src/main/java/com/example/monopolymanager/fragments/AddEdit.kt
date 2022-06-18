@@ -19,7 +19,6 @@ class AddEdit : Fragment() {
 
     lateinit var binding: AddEditFragmentBinding
     var isAdd : Boolean = true
-    var idUser : Int = 0
 
     companion object {
         fun newInstance() = AddEdit()
@@ -46,16 +45,20 @@ class AddEdit : Fragment() {
     override fun onStart() {
         super.onStart()
 
-        setUpButtons()
-        setUpSpinners()
+        viewModel.isLoading.observe(viewLifecycleOwner) { stillLoading ->
+            if(!stillLoading) {
+                setUpButtons()
+                setUpSpinners()
 
-        if (!isAdd) {
-            updateLabels()
-            if (viewModel.hasHotel()) {
-                binding.housesAmtTxt.text = getString(R.string.hotel)
-            }
-            else {
-                binding.housesAmtTxt.text = "${viewModel.getHousesAmt()}"
+                if (!isAdd) {
+                    updateLabels()
+                    if (viewModel.hasHotel()) {
+                        binding.housesAmtTxt.text = getString(R.string.hotel)
+                    }
+                    else {
+                        binding.housesAmtTxt.text = "${viewModel.getHousesAmt()}"
+                    }
+                }
             }
         }
     }

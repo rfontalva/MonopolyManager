@@ -2,13 +2,17 @@ package com.example.monopolymanager.fragments
 
 import android.content.Context
 import android.content.SharedPreferences
+import android.content.SharedPreferences.OnSharedPreferenceChangeListener
 import android.os.Bundle
-import androidx.fragment.app.Fragment
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.animation.Animation
+import android.view.animation.AnimationUtils
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
+import androidx.fragment.app.Fragment
 import androidx.navigation.findNavController
 import com.example.monopolymanager.R
 import com.example.monopolymanager.databinding.ProfileFragmentBinding
@@ -17,6 +21,13 @@ import com.google.android.material.snackbar.Snackbar
 
 private var PREF_NAME = "MONOPOLY"
 class ProfileFragment : Fragment() {
+
+    private var isOpen = false
+    private val rotateOpen: Animation by lazy { AnimationUtils.loadAnimation(requireContext(), R.anim.rotate_open_anim)}
+    private val rotateClose: Animation by lazy { AnimationUtils.loadAnimation(requireContext(), R.anim.rotate_close_anim)}
+    private val fromBottom: Animation by lazy { AnimationUtils.loadAnimation(requireContext(), R.anim.from_bottom_anim)}
+    private val toBottom: Animation by lazy { AnimationUtils.loadAnimation(requireContext(), R.anim.to_bottom_anim)}
+    lateinit var sharedPref: SharedPreferences
 
     companion object {
         fun newInstance() = ProfileFragment()
@@ -36,9 +47,37 @@ class ProfileFragment : Fragment() {
 
     override fun onStart() {
         super.onStart()
+        sharedPref = requireContext().getSharedPreferences(PREF_NAME, Context.MODE_PRIVATE)
 
-        val avatarId = viewModel.getAvatar()
-        binding.avatarImg.setImageResource(avatarId)
+        binding.menuBtn2.setOnClickListener {
+            toggleVisibility()
+            toggleAnimations()
+            isOpen = !isOpen
+        }
+        viewModel.isLoading.observe(viewLifecycleOwner) { stillLoading ->
+            if (!stillLoading) {
+                val avatarId = viewModel.getAvatar()
+                binding.avatarImg.setImageResource(avatarId)
+                setUpSpinners(avatarId)
+            }
+
+        }
+
+        binding.settingsBtn.setOnClickListener {
+            binding.root.findNavController().navigate(ProfileFragmentDirections.actionProfileFragmentToSettingsActivity())
+        }
+
+        binding.logOutBtn.setOnClickListener {
+            if (viewModel.logOut()) {
+                requireActivity().finish()
+            }
+            else {
+                Snackbar.make(binding.root, "NOPE", Snackbar.LENGTH_SHORT).show()
+            }
+        }
+    }
+
+    fun setUpSpinners(avatarId: Int) {
         val avatars = mutableListOf("dog", "car", "hat", "shoe", "boat")
         val avatarIds : MutableList<Int> = mutableListOf()
         val avatarNames : MutableList<String> = mutableListOf()
@@ -71,27 +110,31 @@ class ProfileFragment : Fragment() {
         })
 
         binding.avatarSpinner.setSelection(index)
-        binding.editMail.setText(viewModel.getEmail())
+    }
 
-        binding.changeBtn.setOnClickListener {
-            val text = binding.editMail.text.toString()
-            if (viewModel.updateEmail(text)) {
-                Snackbar.make(binding.root,getString(R.string.emailUpdated), Snackbar.LENGTH_SHORT).show()
-            } else {
-                Snackbar.make(binding.root,getString(R.string.emailNotAvailable), Snackbar.LENGTH_SHORT).show()
-            }
+    private fun toggleVisibility() {
+        if (!isOpen) {
+            binding.settingsBtn.visibility = View.VISIBLE
+            binding.logOutBtn.visibility = View.VISIBLE
+            binding.settingsBtn.isClickable = true
+            binding.logOutBtn.isClickable = true
+        } else {
+            binding.settingsBtn.visibility = View.GONE
+            binding.logOutBtn.visibility = View.GONE
+            binding.settingsBtn.isClickable = false
+            binding.logOutBtn.isClickable = false
         }
+    }
 
-        binding.settingsBtn.setOnClickListener {
-            binding.root.findNavController().navigate(ProfileFragmentDirections.actionProfileFragmentToSettingsActivity())
-        }
-
-        binding.logOutBtn.setOnClickListener {
-            val sharedPref: SharedPreferences = requireContext().getSharedPreferences(PREF_NAME, Context.MODE_PRIVATE)
-            val editor = sharedPref.edit()
-            editor.putBoolean("stayLoggedIn", false)
-            editor.apply()
-            this.activity?.finish()
+    private fun toggleAnimations() {
+        if (!isOpen) {
+            binding.settingsBtn.startAnimation(fromBottom)
+            binding.logOutBtn.startAnimation(fromBottom)
+            binding.menuBtn2.startAnimation(rotateOpen)
+        } else {
+            binding.settingsBtn.startAnimation(toBottom)
+            binding.logOutBtn.startAnimation(toBottom)
+            binding.menuBtn2.startAnimation(rotateClose)
         }
     }
 

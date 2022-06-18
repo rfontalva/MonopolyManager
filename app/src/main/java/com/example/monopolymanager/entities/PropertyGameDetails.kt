@@ -6,6 +6,7 @@ data class PropertyGameDetails(
     var houses: Int?,
     var idOwner: String?,
     var isMortgaged: Boolean,
-) {
-    constructor() : this("",false, 0, "", false)
+    var group: Int,
+    ) {
+    constructor() : this("",false, 0, "", false, 0)
 }

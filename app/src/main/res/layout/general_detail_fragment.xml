@@ -139,6 +139,19 @@
         app:layout_constraintEnd_toEndOf="@+id/mortgageBtn" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/generateQRBtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="16dp"
+        android:clickable="false"
+        android:contentDescription="cobrar"
+        android:src="@drawable/qr"
+        android:visibility="invisible"
+        app:backgroundTint="@color/green_moss"
+        app:layout_constraintBottom_toTopOf="@+id/editBtn"
+        app:layout_constraintEnd_toEndOf="@+id/mortgageBtn" />
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/menuBtn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

@@ -24,14 +24,31 @@ fun stringToArray(string: String) : IntArray {
 }
 
 
+@Entity(tableName = "Property")
 class Property(
+    @ColumnInfo(name = "name")
     var name: String? = null,
+
+    @ColumnInfo(name = "price")
     var price: Int,
+
+    @ColumnInfo(name = "groupNumber")
     var group: Int,
-    var rent: String? = null,
+
+    @ColumnInfo(name = "rent")
+    var rent: String?,
+
+    @ColumnInfo(name = "rentHotel")
     var rentHotel: Int,
+
+    @ColumnInfo(name = "mortgage")
     var mortgage: Int
 ) : Parcelable {
+
+    @PrimaryKey(autoGenerate = true)
+    @ColumnInfo(name = "idProperty")
+    var idProperty : Int = 0
+
     var houses: Int = 0
     var idOwner : String? = null
     var hasHotel: Boolean = false
@@ -77,14 +94,7 @@ class Property(
         }
     }
 
-    fun setDetailsReduced(details: PropertyGameDetails) {
-        isMortgaged = details.isMortgaged
-        hasHotel = details.hasHotel
-        houses = details.houses!!
-        idOwner = details.idOwner!!
-    }
-
-    fun setDetails(details: Property) {
+    fun setDetails(details: PropertyGameDetails) {
         isMortgaged = details.isMortgaged
         hasHotel = details.hasHotel
         houses = details.houses!!
@@ -97,6 +107,8 @@ class Property(
         details.hasHotel = hasHotel
         details.houses = houses
         details.idOwner = idOwner
+        details.name = name
+        details.group = group
         return details
     }
 

@@ -8,13 +8,14 @@ import android.view.View
 import android.view.ViewGroup
 import com.example.monopolymanager.R
 import com.example.monopolymanager.databinding.SellDetailFragmentBinding
+import com.example.monopolymanager.entities.Property
 import com.example.monopolymanager.viewmodels.SellDetailViewModel
 
 
-class SellDetail : Fragment() {
+class SellDetail(var property: Property?) : Fragment() {
 
     companion object {
-        fun newInstance() = SellDetail()
+        fun newInstance() = SellDetail(null)
     }
     private lateinit var binding: SellDetailFragmentBinding
     private lateinit var viewModel: SellDetailViewModel
@@ -25,17 +26,17 @@ class SellDetail : Fragment() {
     ): View? {
 
         binding = SellDetailFragmentBinding.inflate(layoutInflater)
-        viewModel = SellDetailViewModel(context)
+        viewModel = SellDetailViewModel(requireContext(), property)
         return binding.root
     }
 
     override fun onStart() {
         super.onStart()
-        binding.titleDeedRow.setBackgroundColor(Color.parseColor(viewModel.color))
-        binding.propertyNameRow.setBackgroundColor(Color.parseColor(viewModel.color))
-        val nameId = resources.getIdentifier("com.example.monopolymanager:string/${viewModel.property?.name}", null, null);
+        binding.titleDeedRow.setBackgroundColor(Color.parseColor(viewModel.getColor()))
+        binding.propertyNameRow.setBackgroundColor(Color.parseColor(viewModel.getColor()))
+        val nameId = resources.getIdentifier("com.example.monopolymanager:string/${property?.name}", null, null);
         binding.propertyNameCard.text = resources.getString(nameId)
-        val rentArray = viewModel.property!!.getRentArray()
+        val rentArray = property!!.getRentArray()
         "${getString(R.string.rent)} $${rentArray[0]}".also { binding.rentPrice.text = it }
         "$${ rentArray[1] }".also { binding.oneHouseRent.text = it }
         "$${ rentArray[2] }".also { binding.twoHouseRent.text = it }
@@ -43,8 +44,8 @@ class SellDetail : Fragment() {
         "$${ rentArray[4] }".also { binding.fourHouseRent.text = it }
         "$${viewModel.property!!.rentHotel}".also { binding.hotelRent.text = it }
         "$${viewModel.property!!.mortgage}".also { binding.mortgagePrice.text = it }
-        ("${getString(R.string.housingPrice1)} ${viewModel.housePrice} ${getString(R.string.housingPrice2)}" +
-            "${viewModel.housePrice} ${getString(R.string.housingPrice3)}").also { binding.housingPrice.text = it }
+        ("${getString(R.string.housingPrice1)} ${viewModel.getHousePrice()} ${getString(R.string.housingPrice2)}" +
+            "${viewModel.getHousePrice()} ${getString(R.string.housingPrice3)}").also { binding.housingPrice.text = it }
     }
 
 }

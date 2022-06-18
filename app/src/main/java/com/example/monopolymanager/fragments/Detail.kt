@@ -61,7 +61,7 @@ class Detail : Fragment() {
 
             return when(position){
                 0 -> GeneralDetail(property)
-                1 -> SellDetail()
+                1 -> SellDetail(property)
 
                 else -> GeneralDetail(property)
             }

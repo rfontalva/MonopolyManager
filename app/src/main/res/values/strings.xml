@@ -63,7 +63,12 @@
     <string name="menu">Menu.</string>
     <string name="gameName">Nombre del juego</string>
     <string name="players">Jugadores...</string>
-
+    <string name="youllpay">Pagaras:</string>
+    <string name="toPlayer">Al jugador:</string>
+    <string name="scanQR">Escanea un QR para pagar a alguien en el mismo juego</string>
+    <string name="notValidQR">QR invalido. Vuelva a intentarlo.</string>
+    <string name="pay">Pagar</string>
+    <string name="findQR">Encuentra un QR válido</string>
 
     <!--properties  names-->
     <string name="mediterranean">Avenida Mediterráneo</string>

@@ -3,7 +3,6 @@ package com.example.monopolymanager.adapters
 import android.content.Context
 import android.content.SharedPreferences
 import android.graphics.Color
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -14,56 +13,37 @@ import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.MutableLiveData
 import androidx.recyclerview.widget.RecyclerView
 import com.example.monopolymanager.R
+import com.example.monopolymanager.database.AppDatabase
 import com.example.monopolymanager.database.groupDao
-import com.example.monopolymanager.database.propertyDao
 import com.example.monopolymanager.entities.Group
 import com.example.monopolymanager.entities.Property
-import com.example.monopolymanager.entities.User
-import com.google.firebase.firestore.ktx.firestore
-import com.google.firebase.firestore.ktx.toObject
-import com.google.firebase.ktx.Firebase
-import kotlinx.coroutines.tasks.await
 
 private var PREF_NAME = "MONOPOLY"
 
-class PropertyAdapter (private var lyfeCycle: LifecycleOwner, private var properties : MutableList<Property>?,
+class PropertyAdapter (private var lifeCycle: LifecycleOwner, private var properties : MutableList<Property>?,
                        var onClick : (Int) -> Unit,
 ) : RecyclerView.Adapter<PropertyAdapter.PropertyHolder>()  {
     class PropertyHolder(v: View) : RecyclerView.ViewHolder(v) {
         private var view: View = v
-        private var db = Firebase.firestore
+        private var roomDb: AppDatabase? = null
+        private var groupDao: groupDao? = null
         private var groups = mutableListOf<Group>()
-        var isInitialized: MutableLiveData<Boolean> = MutableLiveData(false)
 
         init {
-            try {
-                db.collection("Group")
-                    .get()
-                    .addOnSuccessListener { documents ->
-                        for (document in documents) {
-                             groups.add(document.toObject())
-                        }
-                        isInitialized.value = true
-                    }
-                    .addOnFailureListener { exception ->
-                        Log.d("debug", "Error getting documents: ", exception)
-                    }
-            } catch (e: Exception) {
-                Log.d("Test", e.localizedMessage)
-            }
+            roomDb = AppDatabase.getAppDataBase(v.context)
+            groupDao = roomDb?.groupDao()
+            groups = groupDao?.selectAll()!!
         }
 
         fun setProperty(prop: Property?) {
             val propertyNameTxt : TextView = view.findViewById(R.id.propertyNameTxt)
-            val nameId = view.resources.getIdentifier("com.example.monopolymanager:string/${prop?.name}", null, null);
+            val nameId = view.resources.getIdentifier("com.example.monopolymanager:string/${prop?.name}", null, null)
             propertyNameTxt.text = view.resources.getString(nameId)
 
             val propertyPriceTxt : TextView = view.findViewById(R.id.propertyPriceTxt)
-            val sharedPref: SharedPreferences = view.context.getSharedPreferences(PREF_NAME, Context.MODE_PRIVATE)
-            val idUser = sharedPref.getString("idUser", "")
             val hasWholeGroup = false
             if (hasWholeGroup && prop!!.houses == 0)
-                "$${prop?.getRentPrice()!! * 2}".also { propertyPriceTxt.text = it }
+                "$${prop.getRentPrice()!! * 2}".also { propertyPriceTxt.text = it }
             else
                 "$${prop?.getRentPrice()}".also { propertyPriceTxt.text = it }
 
@@ -75,7 +55,7 @@ class PropertyAdapter (private var lyfeCycle: LifecycleOwner, private var proper
             }
 
             val imageViewIcon: ImageView = view.findViewById(R.id.propertyColorImg) as ImageView
-            val color = groups.filter { it.group == prop.group }[0].color
+            val color = groups.firstOrNull { it.group == prop.group }?.color
             imageViewIcon.setBackgroundColor(Color.parseColor(color))
         }
 
@@ -84,20 +64,16 @@ class PropertyAdapter (private var lyfeCycle: LifecycleOwner, private var proper
         }
     }
 
-
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PropertyHolder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.property,parent,false)
         return (PropertyHolder(view))
     }
 
     override fun onBindViewHolder(holder: PropertyHolder, position: Int) {
-        holder.isInitialized.observe(lyfeCycle) { result ->
-            if (result) {
-                holder.setProperty(properties?.get(position))
-                holder.getCardView().setOnClickListener {
-                    onClick(position)
-                }
-            }
+
+        holder.setProperty(properties?.get(position))
+        holder.getCardView().setOnClickListener {
+            onClick(position)
         }
     }
 

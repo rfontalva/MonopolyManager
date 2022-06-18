@@ -65,6 +65,13 @@
     <string name="menu">Menu.</string>
     <string name="gameName">Game\'s name</string>
     <string name="players">Players...</string>
+    <string name="youllpay">You\'ll pay:</string>
+    <string name="toPlayer">To player:</string>
+    <string name="scanQR">Scan a QR Code to pay someone in the same game</string>
+    <string name="notValidQR">Invalid QR. Please try again.</string>
+    <string name="pay">Pay</string>
+    <string name="findQR">Find a valid QR</string>
+
 
     <!--colors-->
     <string name="lime">Lime</string>

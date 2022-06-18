@@ -5,7 +5,6 @@ import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.example.monopolymanager.database.userDao
 import com.example.monopolymanager.entities.User
 import com.google.firebase.auth.AuthResult
 import com.google.firebase.auth.FirebaseAuth
@@ -15,15 +14,8 @@ import com.google.firebase.ktx.Firebase
 import kotlinx.coroutines.tasks.await
 
 class RegisterViewModel(context: Context) : ViewModel() {
-    private var db: Any? = null
-    private var userDao: userDao? = null
     var isLoading: MutableLiveData<Boolean> = MutableLiveData(false)
     var success: MutableLiveData<Boolean?> = MutableLiveData(null)
-
-    init {
-        db = context.let { null }
-        userDao = null
-    }
 
     suspend fun createUser(email: String, password: String): AuthResult? {
         isLoading.postValue(true)

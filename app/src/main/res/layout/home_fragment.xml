@@ -7,6 +7,37 @@
     android:layout_height="match_parent"
     tools:context=".fragments.Home">
 
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/menuBtn3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginEnd="44dp"
+        android:layout_marginBottom="80dp"
+        android:clickable="true"
+        android:contentDescription="@string/menu"
+        android:src="@drawable/menu"
+        app:backgroundTint="@color/pistachio"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        tools:ignore="ImageContrastCheck" />
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/settingsBtn2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_marginEnd="222dp"
+        android:layout_marginBottom="16dp"
+        android:clickable="false"
+        android:contentDescription="@string/settings"
+        android:src="@drawable/settings"
+        android:visibility="invisible"
+        app:backgroundTint="@color/green_moss"
+        app:layout_constraintBottom_toTopOf="@+id/logOutBtn"
+        app:layout_constraintEnd_toEndOf="@+id/logOutBtn" />
+
     <androidx.cardview.widget.CardView
         android:id="@+id/cardView"
         android:layout_width="75dp"
@@ -44,9 +75,9 @@
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/propertiesList"
         android:layout_width="369dp"
-        android:layout_height="463dp"
+        android:layout_height="455dp"
         android:layout_alignParentStart="true"
-        android:layout_marginStart="20dp"
+        android:layout_marginStart="16dp"
         android:layout_marginTop="173dp" />
 
     <TextView
@@ -111,13 +142,27 @@
         android:id="@+id/addButton"
         android:layout_width="83dp"
         android:layout_height="87dp"
-        android:layout_below="@+id/view"
-        android:layout_alignParentEnd="true"
-        android:layout_marginTop="370dp"
-        android:layout_marginEnd="36dp"
+        android:layout_above="@+id/menuBtn3"
+        android:layout_alignEnd="@+id/menuBtn3"
+        android:layout_marginEnd="0dp"
+        android:layout_marginBottom="16dp"
         android:clickable="true"
         android:contentDescription="@string/addEdit"
-        android:src="@android:drawable/ic_input_add" />
+        android:src="@android:drawable/ic_input_add"
+        android:visibility="invisible" />
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/scanButton"
+        android:layout_width="83dp"
+        android:layout_height="87dp"
+        android:layout_above="@+id/addButton"
+        android:layout_alignEnd="@+id/menuBtn3"
+        android:layout_marginEnd="0dp"
+        android:layout_marginBottom="16dp"
+        android:clickable="true"
+        android:contentDescription="@string/addEdit"
+        android:src="@drawable/qrscan"
+        android:visibility="invisible" />
 
     <TextView
         android:id="@+id/loadingHome"

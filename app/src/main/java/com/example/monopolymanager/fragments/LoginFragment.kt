@@ -45,17 +45,19 @@ class LoginFragment : Fragment() {
 
     override fun onStart() {
         super.onStart()
+
         val parentJob = Job()
         val scope = CoroutineScope(Dispatchers.Default + parentJob)
 
         val navController = binding.root.findNavController()
         val sharedPref: SharedPreferences = requireContext().getSharedPreferences(PREF_NAME, Context.MODE_PRIVATE)
         val stayLoggedPref = sharedPref.getBoolean("stayLoggedIn", false)
+        viewModel.initializeProperties()
 
         viewModel.success.observe(viewLifecycleOwner) { result ->
             if (result == true) {
                 val editor = sharedPref.edit()
-                val user = User("r", foundEmail)
+                val user = User(binding.username.text.toString(), foundEmail)
                 binding.username.isEnabled = true
                 binding.password.isEnabled = true
                 editor.putString("username", user.getUsername()!!)

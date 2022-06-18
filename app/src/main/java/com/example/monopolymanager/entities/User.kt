@@ -13,7 +13,6 @@ class User(
     private var username: String?,
     private var email: String?,
 ) : Parcelable {
-    var idUser : String = ""
     private var cash: Int = 1500
     private var avatar: Int = R.drawable.dog
 
@@ -79,5 +78,9 @@ class User(
             return Pair(cash, false)
         cash += amount
         return Pair(cash, true)
+    }
+
+    fun getDetails() : UserGameDetails {
+        return UserGameDetails(username, cash)
     }
 }

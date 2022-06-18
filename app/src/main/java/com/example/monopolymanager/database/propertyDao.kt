@@ -9,9 +9,6 @@ public interface propertyDao {
     @Query("SELECT * FROM Property ORDER BY idProperty")
     fun selectAll(): MutableList<Property>
 
-    @Query("SELECT * FROM Property WHERE idUser is null ORDER BY idProperty")
-    fun selectAllAvailable(): MutableList<Property>
-
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insertProperty(property: Property?)
 
@@ -27,23 +24,20 @@ public interface propertyDao {
     @Query("SELECT * from Property WHERE groupNumber = :groupNumber")
     fun loadAllInGroup(groupNumber: Int): MutableList<Property>
 
-    @Query("SELECT name FROM Property WHERE idUser is null AND groupNumber = :groupNumber ORDER BY idProperty")
+    @Query("SELECT name FROM Property WHERE groupNumber = :groupNumber ORDER BY idProperty")
     fun loadAvailablePropertiesByGroup(groupNumber: Int): MutableList<String?>
+
+    @Query("SELECT * FROM Property WHERE name NOT IN (:occupiedNames) ORDER BY idProperty")
+    fun loadAvailablePropertiesByName(occupiedNames: List<String>): MutableList<Property>
 
     @Query("SELECT * from Property WHERE idProperty = :id")
     fun loadPropertyById(id: Int): Property?
 
-    @Query("SELECT * from Property WHERE idUser = :idUser")
-    fun loadPropertiesByUserId(idUser: String?): MutableList<Property>
-
     @Query("SELECT * from Property WHERE name = :name")
     fun loadPropertyByName(name: String?): Property?
 
-    @Query("SELECT idUser from Property WHERE idProperty = :idProperty")
-    fun isAvailable(idProperty: Int?): Int
-
-    @Query("SELECT count(*) from Property WHERE groupNumber = :groupNumber AND (idUser <> :idUser OR idUser is null)")
-    fun checkWholeGroup(groupNumber: Int, idUser: Int?) : Int
+    @Query("SELECT * from Property WHERE name in (:names) order by idProperty")
+    fun loadAllPropertiesByNames(names: List<String?>): MutableList<Property>
 
     @Query("SELECT count(*) from Property")
     fun propertyCount() : Int

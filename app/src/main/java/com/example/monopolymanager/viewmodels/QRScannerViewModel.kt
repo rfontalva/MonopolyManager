@@ -6,10 +6,7 @@ import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.monopolymanager.database.AppDatabase
-import com.example.monopolymanager.database.propertyDao
 import com.example.monopolymanager.entities.Game
-import com.example.monopolymanager.entities.Property
 import com.example.monopolymanager.entities.User
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.firestore.ktx.toObject
@@ -19,26 +16,20 @@ import kotlinx.coroutines.tasks.await
 
 private var PREF_NAME = "MONOPOLY"
 
-class HomeViewModel(context: Context) : ViewModel() {
-    private var db = Firebase.firestore
-    private var roomDb: AppDatabase? = null
-    private var propertyDao: propertyDao? = null
-    var isLoading: MutableLiveData<Boolean> = MutableLiveData(false)
+class QRScannerViewModel(val context: Context) : ViewModel() {
+    val isLoading: MutableLiveData<Boolean> = MutableLiveData(true)
+    val db = Firebase.firestore
     var user: User? = null
     var game: Game? = null
-    private var properties: MutableList<Property> = mutableListOf()
-    private var username: String? = null
+    var username : String?
+    private var hasFoundValid: Boolean = false
 
     init {
         val sharedPref: SharedPreferences = context.getSharedPreferences(PREF_NAME, Context.MODE_PRIVATE)
-        roomDb = AppDatabase.getAppDataBase(context)
-        propertyDao = roomDb?.propertyDao()
         username = sharedPref.getString("username", "")
-        isLoading.value = true
         viewModelScope.launch {
             initializeUser()
             initializeGame()
-            initializeProperties()
             isLoading.postValue(false)
         }
     }
@@ -53,7 +44,7 @@ class HomeViewModel(context: Context) : ViewModel() {
                 Log.d("Test", "No such document")
             }
         } catch (e: Exception) {
-            Log.d("Test", e.localizedMessage)
+            Log.d("Test", "error:", e)
         }
     }
 
@@ -63,34 +54,34 @@ class HomeViewModel(context: Context) : ViewModel() {
             val dataSnapshot = docRef.get().await()
             if (dataSnapshot != null) {
                 game = dataSnapshot.toObject<Game>()
+                user?.setCash(game?.getCashFromUsername(user!!.getUsername()!!)!!)
             } else {
                 Log.d("Test", "No such document")
             }
         } catch (e: Exception) {
-            Log.d("Test", e.localizedMessage)
+            Log.d("Test", "error:", e)
         }
     }
 
-    private fun initializeProperties() {
-        val filteredProperties = game!!.properties
-            .filter { it.idOwner == user!!.getUsername()}
-            .sortedBy { it.group }
-        for (property in filteredProperties) {
-            val foundProperty = propertyDao?.loadPropertyByName(property.name)
-            foundProperty?.setDetails(property)
-            properties.add(foundProperty!!)
+    fun isValidGame(gameName: String, userDest: String) : Boolean {
+        return gameName == game!!.name &&
+                game!!.players.count { it.player == userDest } == 1 &&
+                userDest != username
+    }
+
+    fun pay(amount: Int, userDest: String) : Boolean {
+        if (user?.pay(amount)!!.second) {
+            game?.updateBalance(user!!.getUsername()!!, userDest, amount)
+            db.collection("Game").document(game!!.name).set(game!!)
         }
+        return user?.pay(amount)!!.second
     }
 
-    fun getCash() : Int? {
-        return game!!.getCashFromUsername(user!!.getUsername()!!)
+    fun hasFoundValid() : Boolean {
+        return hasFoundValid
     }
 
-    fun getProperties(): MutableList<Property> {
-        return properties
-    }
-
-    fun getAvatar() : Int {
-        return user!!.getAvatar()
+    fun setHasFoundValid() {
+        hasFoundValid = true
     }
 }

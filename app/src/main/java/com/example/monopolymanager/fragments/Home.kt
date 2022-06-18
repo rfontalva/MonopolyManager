@@ -1,11 +1,11 @@
 package com.example.monopolymanager.fragments
 
-import android.opengl.Visibility
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.animation.Animation
+import android.view.animation.AnimationUtils
 import androidx.fragment.app.Fragment
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -15,12 +15,17 @@ import com.example.monopolymanager.adapters.PropertyAdapter
 import com.example.monopolymanager.entities.Game
 import com.example.monopolymanager.utils.convertPixelsToDp
 import com.example.monopolymanager.viewmodels.HomeViewModel
-import com.google.firebase.firestore.ktx.firestore
-import com.google.firebase.firestore.ktx.toObject
-import com.google.firebase.ktx.Firebase
+
 
 
 class Home : Fragment() {
+
+    private var isOpen = false
+    private val rotateOpen: Animation by lazy { AnimationUtils.loadAnimation(requireContext(), R.anim.rotate_open_anim)}
+    private val rotateClose: Animation by lazy { AnimationUtils.loadAnimation(requireContext(), R.anim.rotate_close_anim)}
+    private val fromBottom: Animation by lazy { AnimationUtils.loadAnimation(requireContext(), R.anim.from_bottom_anim)}
+    private val toBottom: Animation by lazy { AnimationUtils.loadAnimation(requireContext(), R.anim.to_bottom_anim)}
+
 
     companion object {
         fun newInstance() = Home()
@@ -34,13 +39,18 @@ class Home : Fragment() {
     ): View? {
         binding = HomeFragmentBinding.inflate(layoutInflater)
         viewModel = HomeViewModel(requireContext())
+        isOpen = false
         return binding.root
     }
 
     override fun onStart() {
         super.onStart()
-        val db = Firebase.firestore
 
+        binding.menuBtn3.setOnClickListener {
+            toggleVisibility()
+            toggleAnimations()
+            isOpen = !isOpen
+        }
 
         viewModel.isLoading.observe(viewLifecycleOwner) { isLoading ->
             if (!isLoading) {
@@ -62,7 +72,7 @@ class Home : Fragment() {
                         username = "${username.slice(username.indices - 1)}..."
                         binding.greeting.measure(0, 0)
                     }
-                    "$${viewModel.user!!.getCash()}".also { binding.cashTxt.text = it }
+                    "$${viewModel.getCash()}".also { binding.cashTxt.text = it }
                 }
             }
         }
@@ -71,9 +81,40 @@ class Home : Fragment() {
             val navController = binding.root.findNavController()
             navController.navigate(HomeDirections.actionHome2ToAddEdit(isAdd = true))
         }
+
+        binding.scanButton.setOnClickListener {
+            val navController = binding.root.findNavController()
+            navController.navigate(HomeDirections.actionHome2ToQRScanner())
+        }
     }
 
     fun onItemClick(position: Int) {
         binding.root.findNavController().navigate(HomeDirections.actionHome2ToDetail(property = viewModel.getProperties()!![position]))
+    }
+
+    private fun toggleVisibility() {
+        if (!isOpen) {
+            binding.scanButton.visibility = View.VISIBLE
+            binding.addButton.visibility = View.VISIBLE
+            binding.scanButton.isClickable = true
+            binding.addButton.isClickable = true
+        } else {
+            binding.scanButton.visibility = View.GONE
+            binding.addButton.visibility = View.GONE
+            binding.scanButton.isClickable = false
+            binding.addButton.isClickable = false
+        }
+    }
+
+    private fun toggleAnimations() {
+        if (!isOpen) {
+            binding.scanButton.startAnimation(fromBottom)
+            binding.addButton.startAnimation(fromBottom)
+            binding.menuBtn3.startAnimation(rotateOpen)
+        } else {
+            binding.scanButton.startAnimation(toBottom)
+            binding.addButton.startAnimation(toBottom)
+            binding.menuBtn3.startAnimation(rotateClose)
+        }
     }
 }
