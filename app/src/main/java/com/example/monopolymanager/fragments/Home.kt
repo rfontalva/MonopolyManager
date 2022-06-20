@@ -74,14 +74,14 @@ class Home : Fragment() {
                         username = "${username.slice(username.indices - 1)}..."
                         binding.greeting.measure(0, 0)
                     }
-                    "$${viewModel.getCash()}".also { binding.cashTxt.text = it }
+                    binding.cashTxt.text = "$${viewModel.getCash()}"
                 }
             }
         }
 
         viewModel.cashUpdate.observe(viewLifecycleOwner) { value ->
             if (value != null) {
-                "$${value}".also { binding.cashTxt.text = it }
+                binding.cashTxt.text = "$${value}"
             }
         }
 

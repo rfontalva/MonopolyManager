@@ -14,7 +14,7 @@ class SplashActivity : AppCompatActivity() {
 
     private val shrink: Animation by lazy { AnimationUtils.loadAnimation(this, R.anim.shrink)}
     private val grow: Animation by lazy { AnimationUtils.loadAnimation(this, R.anim.grow)}
-    private val SPLASH_TIME_OUT:Long = 1500 //1.5sec
+    private val SPLASH_TIME_OUT:Long = 1400 //1.5sec
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

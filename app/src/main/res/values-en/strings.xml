@@ -77,6 +77,8 @@
     <string name="join">Join</string>
     <string name="wrongData">There\'s no game available with those values.</string>
     <string name="nameTaken">Name already in use.</string>
+    <string name="removeGame">Leave game</string>
+    <string name="removeGameExplanation">You\'ll leave the game. All your properties in it will be lost.</string>
 
     <!--colors-->
     <string name="lime">Lime</string>

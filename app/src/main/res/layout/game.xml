@@ -2,43 +2,105 @@
 <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/cardProperty"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
+    android:id="@+id/cardGame"
+    android:layout_width="match_parent"
+    android:layout_height="100dp"
     android:layout_margin="8dp"
+    android:background="@color/white"
+    android:backgroundTint="@color/white"
     app:cardCornerRadius="40dp"
     app:cardElevation="8dp">
 
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:layout_width="368dp"
-        android:layout_height="118dp"
-        android:focusableInTouchMode="true">
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/white"
+        android:backgroundTint="@color/white">
 
-        <TextView
-            android:id="@+id/gameNameTxt"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:fontFamily="@font/copperplate_bold"
-            android:text="@string/gameName"
-            android:textSize="30sp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.497"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.343" />
+        <androidx.cardview.widget.CardView
+            android:id="@+id/cardGameDetails"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:cardElevation="9dp">
 
-        <TextView
-            android:id="@+id/playersList"
-            android:layout_width="wrap_content"
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:focusableInTouchMode="true">
+
+                <TextView
+                    android:id="@+id/gameNameTxt"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/copperplate_bold"
+                    android:text="@string/gameName"
+                    android:textSize="30sp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintVertical_bias="0.242" />
+
+                <TextView
+                    android:id="@+id/playersList"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="12dp"
+                    android:fontFamily="@font/futura"
+                    android:text="@string/players"
+                    android:textSize="20sp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.501"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/gameNameTxt" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </androidx.cardview.widget.CardView>
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/cardDeleteGame"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="12dp"
-            android:fontFamily="@font/futura"
-            android:text="@string/players"
-            android:textSize="20sp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.501"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/gameNameTxt" />
-    </androidx.constraintlayout.widget.ConstraintLayout>
+            app:cardBackgroundColor="@android:color/transparent"
+            app:cardCornerRadius="40dp"
+            app:cardElevation="8dp">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:focusableInTouchMode="true">
+
+                <View
+                    android:id="@+id/view4"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:background="@android:color/transparent"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toStartOf="@+id/deleteBtn"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <Button
+                    android:id="@+id/deleteBtn"
+                    android:layout_width="122dp"
+                    android:layout_height="104dp"
+                    android:background="@color/monopoly_red"
+                    android:backgroundTint="@color/monopoly_red"
+                    android:fontFamily="@font/copperplate_std"
+                    android:paddingStart="40dp"
+                    android:textColor="@color/white"
+                    android:textSize="16dp"
+                    app:icon="@drawable/trash"
+                    app:iconSize="40dp"
+                    app:iconTint="@color/white"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="1.0"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </androidx.cardview.widget.CardView>
+
+    </RelativeLayout>
+
 </androidx.cardview.widget.CardView>

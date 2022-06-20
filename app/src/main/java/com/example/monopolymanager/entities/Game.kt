@@ -11,7 +11,7 @@ data class Game (
         return players.firstOrNull {it.player == username}?.cash
     }
 
-    fun getUserDetailsFromUsername(username: String) : UserGameDetails? {
+    private fun getUserDetailsFromUsername(username: String) : UserGameDetails? {
         return players.firstOrNull {it.player == username}
     }
 

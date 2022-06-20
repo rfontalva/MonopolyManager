@@ -75,6 +75,8 @@
     <string name="join">Unirse</string>
     <string name="wrongData">Datos de juego incorrectos</string>
     <string name="nameTaken">Nombre de juego ya en uso</string>
+    <string name="removeGame">Abandonar juego</string>
+    <string name="removeGameExplanation">Abandonarás el juego y perderás las propiedades en el.</string>
 
     <!--properties  names-->
     <string name="mediterranean">Avenida Mediterráneo</string>

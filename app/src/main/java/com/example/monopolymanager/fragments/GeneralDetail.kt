@@ -146,8 +146,6 @@ class GeneralDetail(val property: Property?) : Fragment() {
                 getString(R.string.notEnoughCash),
                 Snackbar.LENGTH_SHORT
             ).show()
-        } else {
-//            viewModel.update()
         }
         return null
     }
