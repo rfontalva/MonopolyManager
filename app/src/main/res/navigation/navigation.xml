@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/navigation"
-    app:startDestination="@id/home2">
+    app:startDestination="@id/games">
     <fragment
         android:id="@+id/home2"
         android:name="com.example.monopolymanager.fragments.Home"
@@ -80,4 +80,13 @@
         android:name="com.example.monopolymanager.QRScanner"
         android:label="activity_qrscanner"
         tools:layout="@layout/activity_qrscanner" />
+    <fragment
+        android:id="@+id/games"
+        android:name="com.example.monopolymanager.fragments.Games"
+        android:label="fragment_games"
+        tools:layout="@layout/fragment_games" >
+        <action
+            android:id="@+id/action_games_to_home2"
+            app:destination="@id/home2" />
+    </fragment>
 </navigation>

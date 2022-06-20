@@ -21,7 +21,7 @@ class GeneralDetailViewModel(context: Context, var property: Property?) : ViewMo
     private var db = Firebase.firestore
     var user: User? = null
     var pricePerHouse: Int? = null
-    var gameName : String = "Game1"
+    var gameName : String? = null
     var game : Game? = null
     var isInitialized: MutableLiveData<Boolean> = MutableLiveData(false)
     var sellSuccess: MutableLiveData<Boolean?> = MutableLiveData(false)
@@ -32,6 +32,7 @@ class GeneralDetailViewModel(context: Context, var property: Property?) : ViewMo
     init {
         val sharedPref: SharedPreferences = context.getSharedPreferences(PREF_NAME, Context.MODE_PRIVATE)
         username = sharedPref.getString("username", "")
+        gameName = sharedPref.getString("game", "")
         user = User(username, "")
         viewModelScope.launch {
             initializeGroup()
@@ -55,7 +56,7 @@ class GeneralDetailViewModel(context: Context, var property: Property?) : ViewMo
     }
 
     private suspend fun initializeGame() {
-        val docRef = db.collection("Game").document(gameName)
+        val docRef = db.collection("Game").document(gameName!!)
         try {
             val dataSnapshot = docRef.get().await()
             if (dataSnapshot != null) {
@@ -105,7 +106,7 @@ class GeneralDetailViewModel(context: Context, var property: Property?) : ViewMo
     }
 
     fun update(details: Game) {
-        db.collection("Game").document(gameName).set(details)
+        db.collection("Game").document(gameName!!).set(details)
     }
 
 
@@ -122,5 +123,9 @@ class GeneralDetailViewModel(context: Context, var property: Property?) : ViewMo
 
     fun getUsername(): String {
         return username!!
+    }
+
+    fun getGame(): String {
+        return gameName!!
     }
 }

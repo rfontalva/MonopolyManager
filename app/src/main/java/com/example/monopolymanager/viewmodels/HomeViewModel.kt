@@ -24,21 +24,25 @@ class HomeViewModel(context: Context) : ViewModel() {
     private var roomDb: AppDatabase? = null
     private var propertyDao: propertyDao? = null
     var isLoading: MutableLiveData<Boolean> = MutableLiveData(false)
+    var cashUpdate: MutableLiveData<Int?> = MutableLiveData(null)
     var user: User? = null
     var game: Game? = null
+    var gameName : String? = null
     private var properties: MutableList<Property> = mutableListOf()
     private var username: String? = null
 
     init {
         val sharedPref: SharedPreferences = context.getSharedPreferences(PREF_NAME, Context.MODE_PRIVATE)
+        username = sharedPref.getString("username", "")
+        gameName = sharedPref.getString("game", "")
         roomDb = AppDatabase.getAppDataBase(context)
         propertyDao = roomDb?.propertyDao()
-        username = sharedPref.getString("username", "")
         isLoading.value = true
         viewModelScope.launch {
             initializeUser()
             initializeGame()
             initializeProperties()
+            registerUpdateCash()
             isLoading.postValue(false)
         }
     }
@@ -58,7 +62,7 @@ class HomeViewModel(context: Context) : ViewModel() {
     }
 
     private suspend fun initializeGame() {
-        val docRef = db.collection("Game").document("Game1")
+        val docRef = db.collection("Game").document(gameName!!)
         try {
             val dataSnapshot = docRef.get().await()
             if (dataSnapshot != null) {
@@ -92,5 +96,22 @@ class HomeViewModel(context: Context) : ViewModel() {
 
     fun getAvatar() : Int {
         return user!!.getAvatar()
+    }
+
+    private fun registerUpdateCash() {
+        val docRef = db.collection("Game").document(gameName!!)
+        docRef.addSnapshotListener { snapshot, e ->
+            if (e != null) {
+                Log.d("Test", "Listen failed.", e)
+                return@addSnapshotListener
+            }
+
+            if (snapshot != null && snapshot.exists()) {
+                val gameUpdate = snapshot.toObject<Game>()
+                cashUpdate.value = gameUpdate?.getCashFromUsername(username!!)!!
+            } else {
+                Log.d("Test", "Current data: null")
+            }
+        }
     }
 }

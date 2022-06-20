@@ -1,6 +1,7 @@
 package com.example.monopolymanager.fragments
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -15,7 +16,8 @@ import com.example.monopolymanager.adapters.PropertyAdapter
 import com.example.monopolymanager.entities.Game
 import com.example.monopolymanager.utils.convertPixelsToDp
 import com.example.monopolymanager.viewmodels.HomeViewModel
-
+import com.google.firebase.firestore.ktx.firestore
+import com.google.firebase.ktx.Firebase
 
 
 class Home : Fragment() {
@@ -74,6 +76,12 @@ class Home : Fragment() {
                     }
                     "$${viewModel.getCash()}".also { binding.cashTxt.text = it }
                 }
+            }
+        }
+
+        viewModel.cashUpdate.observe(viewLifecycleOwner) { value ->
+            if (value != null) {
+                "$${value}".also { binding.cashTxt.text = it }
             }
         }
 

@@ -18,8 +18,6 @@ class GameAdapter (private var games : MutableList<Game>?,
     class GameHolder(v: View) : RecyclerView.ViewHolder(v) {
         private var view: View = v
 
-
-
         fun setGame(game: Game?) {
             val gameNameTxt : TextView = view.findViewById(R.id.gameNameTxt)
             gameNameTxt.text = game!!.name
@@ -27,7 +25,7 @@ class GameAdapter (private var games : MutableList<Game>?,
             val playersListTxt : TextView = view.findViewById(R.id.playersList)
             var playersList = ""
             for (player in game.players) {
-                playersList += "$player, "
+                playersList += "${player.player}, "
             }
             playersListTxt.text = playersList.substring(0, playersList.length - 2)
         }
@@ -39,7 +37,7 @@ class GameAdapter (private var games : MutableList<Game>?,
 
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): GameHolder {
-        val view = LayoutInflater.from(parent.context).inflate(R.layout.property,parent,false)
+        val view = LayoutInflater.from(parent.context).inflate(R.layout.game, parent,false)
         return (GameHolder(view))
     }
 

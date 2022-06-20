@@ -101,7 +101,7 @@ class GeneralDetail(val property: Property?) : Fragment() {
                     .setTitle(getString(R.string.isMortgaged))
                     .setMessage(getString(R.string.unmortgageFirst))
                     .setPositiveButton(getString(R.string.ok)) { _, _ -> null }
-                    .show();
+                    .show()
             } else {
                 MaterialAlertDialogBuilder(requireContext())
                     .setTitle(getString(R.string.sell))
@@ -112,7 +112,7 @@ class GeneralDetail(val property: Property?) : Fragment() {
                         }
                     }
                     .setNegativeButton(getString(R.string.cancel), /* listener = */ null)
-                    .show();
+                    .show()
             }
         }
 
@@ -122,14 +122,14 @@ class GeneralDetail(val property: Property?) : Fragment() {
 
         val qrView = layoutInflater.inflate(R.layout.qr, null)
         val qrImg = qrView.findViewById<ImageView>(R.id.imageView2)
-        qrImg.setImageBitmap(QRData.createQRData("game1",viewModel.getUsername(),viewModel.getRentPrice()))
+        qrImg.setImageBitmap(QRData.createQRData(viewModel.getGame(), viewModel.getUsername(), viewModel.getRentPrice()))
 
         binding.generateQRBtn.setOnClickListener{
             MaterialAlertDialogBuilder(requireContext())
                 .setView(qrView)
                 .setMessage("Cobrar")
                 .setNegativeButton(getString(R.string.cancel), /* listener = */ null)
-                .show();
+                .show()
         }
     }
 

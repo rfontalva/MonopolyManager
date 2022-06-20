@@ -7,6 +7,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.monopolymanager.entities.User
+import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.firestore.ktx.toObject
 import com.google.firebase.ktx.Firebase
@@ -57,6 +58,7 @@ class ProfileViewModel(val context: Context) : ViewModel() {
     }
 
     fun logOut() : Boolean {
+        FirebaseAuth.getInstance().signOut()
         val sharedPref = context.getSharedPreferences(PREF_NAME, Context.MODE_PRIVATE)
         val editor = sharedPref.edit()
         editor.putBoolean("stayLoggedIn", false)

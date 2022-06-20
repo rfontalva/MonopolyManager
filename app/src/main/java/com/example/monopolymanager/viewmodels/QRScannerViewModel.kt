@@ -22,11 +22,13 @@ class QRScannerViewModel(val context: Context) : ViewModel() {
     var user: User? = null
     var game: Game? = null
     var username : String?
+    var gameName: String? = ""
     private var hasFoundValid: Boolean = false
 
     init {
         val sharedPref: SharedPreferences = context.getSharedPreferences(PREF_NAME, Context.MODE_PRIVATE)
         username = sharedPref.getString("username", "")
+        gameName = sharedPref.getString("game", "")
         viewModelScope.launch {
             initializeUser()
             initializeGame()
@@ -49,7 +51,7 @@ class QRScannerViewModel(val context: Context) : ViewModel() {
     }
 
     private suspend fun initializeGame() {
-        val docRef = db.collection("Game").document("Game1")
+        val docRef = db.collection("Game").document(gameName!!)
         try {
             val dataSnapshot = docRef.get().await()
             if (dataSnapshot != null) {

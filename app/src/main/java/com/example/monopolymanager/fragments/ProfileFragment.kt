@@ -1,10 +1,10 @@
 package com.example.monopolymanager.fragments
 
+import android.app.ActivityManager
 import android.content.Context
+import android.content.Intent
 import android.content.SharedPreferences
-import android.content.SharedPreferences.OnSharedPreferenceChangeListener
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -14,12 +14,16 @@ import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import androidx.fragment.app.Fragment
 import androidx.navigation.findNavController
+import com.example.monopolymanager.Login
+import com.example.monopolymanager.MainActivity
 import com.example.monopolymanager.R
 import com.example.monopolymanager.databinding.ProfileFragmentBinding
 import com.example.monopolymanager.viewmodels.ProfileViewModel
 import com.google.android.material.snackbar.Snackbar
 
+
 private var PREF_NAME = "MONOPOLY"
+
 class ProfileFragment : Fragment() {
 
     private var isOpen = false
@@ -69,7 +73,9 @@ class ProfileFragment : Fragment() {
 
         binding.logOutBtn.setOnClickListener {
             if (viewModel.logOut()) {
-                requireActivity().finish()
+                val intent = Intent(activity, Login::class.java)
+                startActivity(intent)
+                (this.requireActivity() as MainActivity).finish()
             }
             else {
                 Snackbar.make(binding.root, "NOPE", Snackbar.LENGTH_SHORT).show()

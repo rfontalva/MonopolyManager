@@ -8,11 +8,11 @@ import android.os.Bundle
 import com.example.monopolymanager.entities.User
 import com.example.monopolymanager.utils.switchLocal
 
-private var PREF_NAME = "MONOPOLY"
 
 class Login : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
+        intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login)
     }

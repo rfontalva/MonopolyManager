@@ -6,8 +6,8 @@ import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.NavigationUI
 import com.google.android.material.bottomnavigation.BottomNavigationView
 
-class MainActivity : AppCompatActivity() {
 
+class MainActivity : AppCompatActivity(){
     private lateinit var bottomNavView : BottomNavigationView
     private lateinit var navHostFragment : NavHostFragment
 

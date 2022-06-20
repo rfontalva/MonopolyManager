@@ -71,7 +71,12 @@
     <string name="notValidQR">Invalid QR. Please try again.</string>
     <string name="pay">Pay</string>
     <string name="findQR">Find a valid QR</string>
-
+    <string name="games">Your games</string>
+    <string name="createOrJoin">Create or join a new game</string>
+    <string name="create">Create</string>
+    <string name="join">Join</string>
+    <string name="wrongData">There\'s no game available with those values.</string>
+    <string name="nameTaken">Name already in use.</string>
 
     <!--colors-->
     <string name="lime">Lime</string>

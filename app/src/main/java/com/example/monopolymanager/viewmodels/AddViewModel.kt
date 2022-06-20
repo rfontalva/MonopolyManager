@@ -22,6 +22,7 @@ class AddViewModel(var context: Context) : AddEditViewModel(context) {
     override val addHousesMsg = R.string.housesError
     override val removeHousesMsg = R.string.housesError
     var username: String? = ""
+    var gameName: String? = ""
     var colors: MutableList<String> = mutableListOf()
     var groups: MutableList<Group> = mutableListOf()
 
@@ -29,6 +30,7 @@ class AddViewModel(var context: Context) : AddEditViewModel(context) {
     init {
         val sharedPref: SharedPreferences = context.getSharedPreferences(PREF_NAME, Context.MODE_PRIVATE)
         username = sharedPref.getString("username", "")
+        gameName = sharedPref.getString("game", "")
         viewModelScope.launch {
             initializeProperties()
             initializeGroups()
@@ -37,7 +39,7 @@ class AddViewModel(var context: Context) : AddEditViewModel(context) {
     }
 
     suspend fun initializeProperties() {
-        val docRef = db.collection("Game").document("Game1")
+        val docRef = db.collection("Game").document(gameName!!)
         try {
             val dataSnapshot = docRef.get().await()
             if (dataSnapshot != null) {

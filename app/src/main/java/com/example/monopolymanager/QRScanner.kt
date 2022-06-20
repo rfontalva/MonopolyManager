@@ -85,7 +85,7 @@ class QRScanner : AppCompatActivity() {
             it.setAnalyzer(executor, QrCodeAnalyzer { qrCodes ->
                 qrCodes?.forEach {
                     val qrData = QRData(it.rawValue!!)
-                    if(qrData.isValid && viewModel.isValidGame("Game1", qrData.username)) {
+                    if(qrData.isValid && viewModel.isValidGame(qrData.game, qrData.username)) {
                         binding.payAmtTxt.text = qrData.cash.toString()
                         binding.toPlayerTxt.text = qrData.username
                         viewModel.setHasFoundValid()

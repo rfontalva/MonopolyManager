@@ -22,12 +22,14 @@ class EditViewModel(var context: Context, override var property: Property?) : Ad
     override val addHousesMsg = R.string.allPropertiesError
     override val removeHousesMsg = R.string.allPropertiesError
     override var game: Game? = null
+    var gameName : String? = null
 
     private var username: String? = null
 
     init {
         val sharedPref: SharedPreferences = context.getSharedPreferences(PREF_NAME, Context.MODE_PRIVATE)
         username = sharedPref.getString("username", "")
+        gameName = sharedPref.getString("game", "")
         hasWholeGroup = false
         groupNumber = property?.group!!
         groupHousePrice = groupDao?.getPricePerHouseByNumber(groupNumber)!!
@@ -38,7 +40,7 @@ class EditViewModel(var context: Context, override var property: Property?) : Ad
         }
     }
     suspend fun initializeProperties() {
-        val docRef = db.collection("Game").document("Game1")
+        val docRef = db.collection("Game").document(gameName!!)
         try {
             val dataSnapshot = docRef.get().await()
             if (dataSnapshot != null) {
@@ -55,7 +57,7 @@ class EditViewModel(var context: Context, override var property: Property?) : Ad
                 Log.d("Test", "No such document")
             }
         } catch (e: Exception) {
-            Log.d("Test", e.localizedMessage)
+            Log.d("Test", "error: ", e)
         }
     }
 
