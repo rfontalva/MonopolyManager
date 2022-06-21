@@ -70,8 +70,10 @@
     <string name="pay">Pagar</string>
     <string name="findQR">Encuentra un QR válido</string>
     <string name="games">Tus juegos</string>
+    <string name="newGame">Juego nuevo</string>
     <string name="createOrJoin">Crear o unirse a un nuevo juego</string>
     <string name="create">Crear</string>
+    <string name="delete">Eliminar</string>
     <string name="join">Unirse</string>
     <string name="wrongData">Datos de juego incorrectos</string>
     <string name="nameTaken">Nombre de juego ya en uso</string>

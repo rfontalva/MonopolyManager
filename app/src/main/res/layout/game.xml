@@ -9,7 +9,23 @@
     android:background="@color/white"
     android:backgroundTint="@color/white"
     app:cardCornerRadius="40dp"
-    app:cardElevation="8dp">
+    app:cardElevation="7dp">
+
+    <Button
+        android:id="@+id/deleteBtn"
+        android:layout_width="122dp"
+        android:layout_height="104dp"
+        android:layout_gravity="end"
+        android:background="@android:color/transparent"
+        android:backgroundTint="@android:color/transparent"
+        android:contentDescription="@string/delete"
+        android:elevation="10dp"
+        android:fontFamily="@font/copperplate_std"
+        android:paddingStart="40dp"
+        android:textSize="16dp"
+        app:iconSize="40dp"
+        app:iconTint="@color/white"
+        tools:ignore="DuplicateClickableBoundsCheck" />
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -21,9 +37,10 @@
             android:id="@+id/cardGameDetails"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            app:cardElevation="9dp">
+            app:cardElevation="10dp">
 
             <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/clickableLayout2"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:focusableInTouchMode="true">
@@ -63,29 +80,20 @@
             android:layout_height="wrap_content"
             app:cardBackgroundColor="@android:color/transparent"
             app:cardCornerRadius="40dp"
-            app:cardElevation="8dp">
+            app:cardElevation="7dp">
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:focusableInTouchMode="true">
 
-                <View
-                    android:id="@+id/view4"
-                    android:layout_width="0dp"
-                    android:layout_height="0dp"
-                    android:background="@android:color/transparent"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toStartOf="@+id/deleteBtn"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
-
                 <Button
-                    android:id="@+id/deleteBtn"
+                    android:id="@+id/trashIcon"
                     android:layout_width="122dp"
                     android:layout_height="104dp"
                     android:background="@color/monopoly_red"
                     android:backgroundTint="@color/monopoly_red"
+                    android:clickable="false"
                     android:fontFamily="@font/copperplate_std"
                     android:paddingStart="40dp"
                     android:textColor="@color/white"

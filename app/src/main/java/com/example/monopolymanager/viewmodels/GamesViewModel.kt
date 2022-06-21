@@ -22,6 +22,7 @@ class GamesViewModel(val context: Context) : ViewModel() {
     var isLoading: MutableLiveData<Boolean> = MutableLiveData(false)
     var hasJoined: MutableLiveData<Boolean?> = MutableLiveData(null)
     var hasCreated: MutableLiveData<Boolean?> = MutableLiveData(null)
+    var refreshGames: MutableLiveData<Boolean?> = MutableLiveData(null)
     private var username: String? = null
 
     init {
@@ -30,6 +31,7 @@ class GamesViewModel(val context: Context) : ViewModel() {
         isLoading.value = true
         viewModelScope.launch {
             initializeGames()
+            registerUpdateGames()
             isLoading.postValue(false)
         }
     }
@@ -101,6 +103,29 @@ class GamesViewModel(val context: Context) : ViewModel() {
             Log.d("Test", "error: ", e)
             hasCreated.postValue(false)
 
+        }
+    }
+
+    private fun registerUpdateGames() {
+        val docRef = db.collection("Game")
+        docRef.addSnapshotListener { snapshot, e ->
+            if (e != null) {
+                Log.d("Test", "Listen failed.", e)
+                return@addSnapshotListener
+            }
+
+//            if (snapshot != null && snapshot.documents.isNotEmpty()) {
+            if (snapshot != null) {
+                games.clear()
+                for (document in snapshot.documents) {
+                    val game = document.toObject<Game>()
+                    if (game?.players?.count {it.player == username} == 1)
+                        games.add(game!!)
+                }
+                refreshGames.value = true
+            } else {
+                Log.d("Test", "Current data: null")
+            }
         }
     }
 }

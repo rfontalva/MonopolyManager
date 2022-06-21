@@ -9,8 +9,10 @@ import android.view.ViewGroup
 import android.view.animation.Animation
 import android.view.animation.AnimationUtils
 import android.widget.Button
+import android.widget.RelativeLayout
 import android.widget.TextView
 import androidx.cardview.widget.CardView
+import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.recyclerview.widget.RecyclerView
 import com.example.monopolymanager.R
 import com.example.monopolymanager.entities.Game
@@ -33,6 +35,9 @@ class GameAdapter (private var games : MutableList<Game>?,
         fun setGame(game: Game?, onClick : (Int) -> Unit, index: Int) {
             val gameNameTxt : TextView = view.findViewById(R.id.gameNameTxt)
             gameNameTxt.text = game!!.name
+            gameNameTxt.setOnClickListener {
+                onClick(index)
+            }
 
             val playersListTxt : TextView = view.findViewById(R.id.playersList)
             var playersList = ""
@@ -41,12 +46,10 @@ class GameAdapter (private var games : MutableList<Game>?,
             }
             playersListTxt.text = playersList.substring(0, playersList.length - 2)
             val cardGameDetails = view.findViewById<CardView>(R.id.cardGameDetails)
-            val cardDeleteGame = view.findViewById<CardView>(R.id.cardDeleteGame)
-            cardGameDetails.setOnClickListener {
-                onClick(index)
-            }
 
             val deleteBtn = view.findViewById<Button>(R.id.deleteBtn)
+            deleteBtn.isEnabled = false
+
             deleteBtn.setOnClickListener {
                 MaterialAlertDialogBuilder(context)
                     .setTitle(context.getString(R.string.removeGame))
@@ -65,23 +68,26 @@ class GameAdapter (private var games : MutableList<Game>?,
                     .setNegativeButton(context.getString(R.string.cancel), /* listener = */ null)
                     .show()
             }
-            with(cardGameDetails) {
-                setOnTouchListener(object: OnSwipeTouchListener(context) {
-                        override fun onSwipeLeft() {
-                            startAnimation(swipeLeft)
-                            cardGameDetails.elevation = 8.toFloat()
-                            cardDeleteGame.elevation = 9.toFloat()
-                        }
-                    })
-            }
 
-            with(cardDeleteGame) {
+            val clickableLayout2 = view.findViewById<ConstraintLayout>(R.id.clickableLayout2)
+            var isLeftOriented = true
+            with(clickableLayout2) {
                 setOnTouchListener(object: OnSwipeTouchListener(context) {
-                    override fun onSwipeRight() {
-                        cardGameDetails.startAnimation(swipeRight)
-                        cardGameDetails.elevation = 9.toFloat()
-                        cardDeleteGame.elevation = 8.toFloat()
+                    override fun onSwipeLeft() {
+                        if (isLeftOriented) {
+                            cardGameDetails.startAnimation(swipeLeft)
+                            deleteBtn.isEnabled = true
+                            isLeftOriented = false
+                        }
                     }
+                    override fun onSwipeRight() {
+                        if (!isLeftOriented) {
+                            cardGameDetails.startAnimation(swipeRight)
+                            deleteBtn.isEnabled = false
+                            isLeftOriented = true
+                        }
+                    }
+
                 })
             }
         }

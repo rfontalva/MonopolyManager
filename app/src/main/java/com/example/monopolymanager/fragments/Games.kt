@@ -57,6 +57,16 @@ class Games : Fragment() {
             }
         }
 
+        viewModel.refreshGames.observe(viewLifecycleOwner) { result ->
+            if (result == true) {
+                binding.gamesList.setHasFixedSize(true)
+                binding.gamesList.layoutManager = LinearLayoutManager(context)
+                binding.gamesList.adapter = GameAdapter(viewModel.getGames()){ index->
+                    onItemClick(index)
+                }
+            }
+        }
+
         binding.addGameBtn.setOnClickListener{
             customAlertDialog.show()
         }
